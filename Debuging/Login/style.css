@@ -1,0 +1,11 @@
+html {
+  text-align: center;
+}
+
+form {
+  border: solid 2px black;
+  width: 500px;
+  margin: 0 auto;
+  padding: 25px;
+  border-radius: 10px;
+}
