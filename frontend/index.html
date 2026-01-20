@@ -14,17 +14,42 @@
   <h1>YalaTogether</h1>
   <p>Share your ride. Travel together.</p>
 
-  <button>Find a Ride</button>
-  <button>Offer a Ride</button>
+  <button id="driverBtn">Offer a Ride</button>
+  <button id="passengerBtn">Find a Ride</button>
   <div id="map" style="height: 400px; margin-top: 40px;"></div>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+ <script>
+  var map = L.map('map').setView([62.0, 15.0], 5);
 
-  <script>
-    var map = L.map('map').setView([62.0, 15.0], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-  </script>
+  var selectedRole = null;
+  var userMarker;
+
+  document.getElementById('driverBtn').onclick = function() {
+    selectedRole = 'Driver';
+  };
+
+  document.getElementById('passengerBtn').onclick = function() {
+    selectedRole = 'Passenger';
+  };
+
+  map.on('click', function(e) {
+    if (!selectedRole) {
+      alert('Please select Driver or Passenger first');
+      return;
+    }
+
+    if (userMarker) {
+      map.removeLayer(userMarker);
+    }
+
+    userMarker = L.marker(e.latlng)
+      .addTo(map)
+      .bindPopup(selectedRole + ' location')
+      .openPopup();
+  });
+</script>
 </body>
 </html>
