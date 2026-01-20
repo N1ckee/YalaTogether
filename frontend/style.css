@@ -32,3 +32,6 @@ button:last-of-type {
   background-color: #2196F3;
   color: white;
 }
+button.active {
+  outline: 3px solid #000;
+}
