@@ -6,18 +6,8 @@
     <title></title>
     <link href="style.css" rel="stylesheet">
   </head>
-  <script>
-  const params = new URLSearchParams(window.location.search);
-  const role = params.get('role');
-
-  if (role) {
-    document.body.insertAdjacentHTML(
-      'afterbegin',
-      '<p>Selected role: ' + role + '</p>'
-    );
-  }
-  </script>
   <body>
+    <h1 id="loginTitle">Login</h1>
     <p>Sign in</p>
     <form>
       <label for="username">Username</label>
@@ -31,5 +21,17 @@
       <input type="submit" name="submit" value="Submit">
     </form>
     <a href="create.html">Create a account</a>
+    <script>
+  const params = new URLSearchParams(window.location.search);
+  const role = params.get('role');
+
+  const title = document.getElementById('loginTitle');
+
+  if (role === 'driver') {
+    title.textContent = 'Driver Login';
+  } else if (role === 'passenger') {
+    title.textContent = 'Passenger Login';
+  }
+</script>
   </body>
 </html>
