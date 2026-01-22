@@ -9,7 +9,7 @@
   <body>
     <h1 id="loginTitle">Login</h1>
     <p>Sign in</p>
-    <form>
+   <form id="loginForm">
       <label for="username">Username</label>
       <br>
       <input type="text" name="username" value="" required>
@@ -32,6 +32,24 @@
   } else if (role === 'passenger') {
     title.textContent = 'Passenger Login';
   }
+
+  const form = document.getElementById('loginForm');
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const username = form.querySelector('input[name="username"]').value;
+    const password = form.querySelector('input[name="password"]').value;
+
+    if (!username || !password) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    // skicka sen data to data base
+
+    window.location.href = 'site.html';
+  });
 </script>
   </body>
 </html>
