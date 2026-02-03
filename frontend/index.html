@@ -4,26 +4,35 @@
   <meta charset="UTF-8">
   <title>YalaTogether</title>
   <link rel="stylesheet" href="style.css">
-  <link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet/dist/leaflet.css"
-/>
+  
 </head>
 <body>
 
-  <h1>YalaTogether</h1>
-  <p>Share your ride. Travel together.</p>
+  <header class="header">
+    <h1>Yalla Together</h1>
 
- <a href="../Debuging/Login/login.html?role=driver">
-  <button id="driverBtn">Offer a Ride</button>
- </a>
+    <nav>
+      <a href="../Debuging/Login/login.html">Login</a>
+      <a href="../Debuging/Login/create.html" class="btn-primary">
+        Create Account
+      </a>
+    </nav>
+  </header>
 
-<a href="../Debuging/Login/login.html?role=passenger">
-  <button id="passengerBtn">Find a Ride</button>
-</a>
-<div id="map" style="height: 400px; margin-top: 40px;"></div>
- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="script.js"></script>
+  <main class="main-content">
+    <p>
+      Yalla Together is a ride-sharing platform that connects drivers
+      and passengers safely and efficiently.
+    </p>
+  </main>
+
+  <footer class="footer">
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="support.html">Customer Support</a>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="privacy.html">Privacy Policy</a>
+  </footer>
 
 </body>
 </html>
