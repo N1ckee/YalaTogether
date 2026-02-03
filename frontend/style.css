@@ -13,27 +13,6 @@ p {
   font-size: 18px;
 }
 
-button {
-  padding: 12px 24px;
-  margin: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:first-of-type {
-  background-color: #4CAF50;
-  color: white;
-}
-
-button:last-of-type {
-  background-color: #2196F3;
-  color: white;
-}
-button.active {
-  outline: 3px solid #000;
-}
 /* Header */
 .header {
   display: flex;
