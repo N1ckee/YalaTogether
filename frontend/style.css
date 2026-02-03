@@ -137,3 +137,31 @@ p {
 .create-link:hover {
   text-decoration: underline;
 }
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  max-width: 400px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+}
+.contact-info {
+  margin: 20px 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.contact-info p {
+  margin: 5px 0;
+}
+.contact-info strong {
+  color: #1e3a8a;
+}
