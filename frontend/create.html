@@ -45,52 +45,83 @@ const form = document.getElementById('registerForm');
 const licenseDate = document.getElementById('licenseDate');
 const licenseError = document.getElementById('licenseError');
 
-roles.forEach(role=>{
-    role.addEventListener('change', ()=>{
-        const driverChecked = [...roles].some(r=>r.value==='driver' && r.checked);
-        if(driverChecked){
-            carFields.classList.remove('hidden');
-        }else{
-            carFields.classList.add('hidden');
-        }
-    });
+roles.forEach(role => {
+  role.addEventListener('change', () => {
+    const driverChecked = [...roles].some(r => r.value === 'driver' && r.checked);
+    if (driverChecked) {
+      carFields.classList.remove('hidden');
+    } else {
+      carFields.classList.add('hidden');
+    }
+  });
 });
 
-form.addEventListener('submit', function(e){
-    e.preventDefault();
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
 
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+  const username = document.getElementById('username').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
 
-    if(password !== confirmPassword){
-        alert("Passwords do not match");
-        return;
+  const selectedRoles = [...roles]
+    .filter(r => r.checked)
+    .map(r => r.value);
+
+  if (selectedRoles.length === 0) {
+    alert("Please select at least one role");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  const strongPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  if (!strongPassword.test(password)) {
+    alert("Password must contain letters and numbers (min 6 characters)");
+    return;
+  }
+
+  const phoneRegex = /^[0-9]{7,15}$/;
+  if (!phoneRegex.test(phone)) {
+    alert("Invalid phone number");
+    return;
+  }
+
+  const existingUser = JSON.parse(localStorage.getItem("user"));
+  if (existingUser && existingUser.username === username) {
+    alert("Username already exists");
+    return;
+  }
+
+  if (!carFields.classList.contains('hidden')) {
+    const selectedDate = new Date(licenseDate.value);
+    const today = new Date();
+    const years = (today - selectedDate) / (1000 * 60 * 60 * 24 * 365);
+
+    if (years < 2) {
+      licenseError.textContent = "License rejected: less than 2 years";
+      return;
+    } else {
+      licenseError.textContent = "";
     }
+  }
 
-    if(!carFields.classList.contains('hidden')){
-        const selectedDate = new Date(licenseDate.value);
-        const today = new Date();
-        const years = (today - selectedDate) / (1000*60*60*24*365);
+  const userData = {
+    username,
+    email,
+    phone,
+    password,
+    roles: selectedRoles
+  };
 
-        if(years < 2){
-            licenseError.textContent = "License rejected: less than 2 years";
-            return;
-        }else{
-            licenseError.textContent = "";
-        }
-    }
+  localStorage.setItem("user", JSON.stringify(userData));
 
-    const userData = {
-        username: document.getElementById('username').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value
-    };
-
-    localStorage.setItem("user", JSON.stringify(userData));
-
-    alert("Registration successful!");
-    form.reset();
-    carFields.classList.add('hidden');
+  alert("Registration successful!");
+  window.location.href = "login.html";
 });
 </script>
 
