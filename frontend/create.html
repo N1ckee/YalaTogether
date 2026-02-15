@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Create Account - Yala Together</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+<h1>Yala Together</h1>
+
+<form id="registerForm">
+
+<input type="text" id="username" placeholder="Username" required>
+<input type="email" id="email" placeholder="Email" required>
+<input type="tel" id="phone" placeholder="Phone Number" required>
+<input type="password" id="password" placeholder="Password" required>
+<input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+
+<div class="role-options">
+<label><input type="checkbox" value="passenger" class="role"> Passenger</label>
+<label><input type="checkbox" value="driver" class="role"> Driver</label>
+</div>
+
+<div id="carFields" class="hidden">
+<input type="text" id="carNumber" placeholder="Car Number">
+<input type="text" id="carModel" placeholder="Car Model">
+<input type="text" id="licenseNumber" placeholder="Driving License Number">
+<input type="date" id="licenseDate">
+<div id="licenseError" class="error"></div>
+</div>
+
+<button type="submit">Register</button>
+
+</form>
+</div>
+
+<script>
+const roles = document.querySelectorAll('.role');
+const carFields = document.getElementById('carFields');
+const form = document.getElementById('registerForm');
+const licenseDate = document.getElementById('licenseDate');
+const licenseError = document.getElementById('licenseError');
+
+roles.forEach(role=>{
+    role.addEventListener('change', ()=>{
+        const driverChecked = [...roles].some(r=>r.value==='driver' && r.checked);
+        if(driverChecked){
+            carFields.classList.remove('hidden');
+        }else{
+            carFields.classList.add('hidden');
+        }
+    });
+});
+
+form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if(password !== confirmPassword){
+        alert("Passwords do not match");
+        return;
+    }
+
+    if(!carFields.classList.contains('hidden')){
+        const selectedDate = new Date(licenseDate.value);
+        const today = new Date();
+        const years = (today - selectedDate) / (1000*60*60*24*365);
+
+        if(years < 2){
+            licenseError.textContent = "License rejected: less than 2 years";
+            return;
+        }else{
+            licenseError.textContent = "";
+        }
+    }
+
+    const userData = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value
+    };
+
+    localStorage.setItem("user", JSON.stringify(userData));
+
+    alert("Registration successful!");
+    form.reset();
+    carFields.classList.add('hidden');
+});
+</script>
+
+</body>
+</html>
