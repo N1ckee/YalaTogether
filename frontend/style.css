@@ -6,8 +6,8 @@ body {
 * {
   box-sizing: border-box;
 }
-h1 {
-  color: #333;
+.logo {
+  height: 42px;
 }
 
 p {
