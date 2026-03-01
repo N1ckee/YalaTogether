@@ -396,3 +396,11 @@ button:hover {
 .create-text a:hover {
   text-decoration: underline;
 }
+.dashboard-container {
+  padding: 60px;
+  text-align: center;
+}
+
+#logoutBtn {
+  margin-top: 20px;
+}
