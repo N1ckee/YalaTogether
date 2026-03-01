@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Yala Together</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Leaflet (رح نحتاجه لاحقاً) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body class="login-body">
+
+<div class="login-wrapper">
+
+  <div class="login-card">
+
+    <img src="images/logo.png" class="login-logo" alt="Yala Together Logo">
+
+    <h2>Welcome Back</h2>
+
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+
+      <div id="errorMessage" class="error hidden"></div>
+
+      <button type="submit" class="login-btn">Log In</button>
+    </form>
+
+    <p class="create-text">
+      Don’t have an account?
+      <a href="create.html">Create Account</a>
+    </p>
+
+  </div>
+
+</div>
+
+<script src="login.js"></script>
+
+</body>
+</html>
