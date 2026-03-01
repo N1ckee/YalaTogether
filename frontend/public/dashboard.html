@@ -4,17 +4,33 @@
   <meta charset="UTF-8">
   <title>Dashboard - Yala Together</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
 
 <div class="dashboard-container">
-  <h1>Yala Together</h1>
+
+  <div class="top-bar">
+    <h1>Yala Together</h1>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
   <h2 id="welcomeText"></h2>
 
-  <button id="logoutBtn">Logout</button>
+  <div class="ride-controls">
+    <input type="text" id="fromInput" placeholder="From">
+    <input type="text" id="toInput" placeholder="To">
+    <button id="useLocationBtn">Use Current Location</button>
+  </div>
+
+  <div id="map"></div>
 
   <div id="contentArea"></div>
+
 </div>
 
 <script src="dashboard.js"></script>
