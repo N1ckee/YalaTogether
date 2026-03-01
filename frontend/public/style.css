@@ -404,3 +404,25 @@ button:hover {
 #logoutBtn {
   margin-top: 20px;
 }
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ride-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#map {
+  height: 500px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.dashboard-container {
+  padding: 30px;
+}
