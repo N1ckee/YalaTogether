@@ -4,6 +4,9 @@ const errorMessage = document.getElementById("errorMessage");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  errorMessage.classList.add("hidden");
+  errorMessage.textContent = "";
+
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
 
@@ -19,11 +22,13 @@ form.addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Invalid username or password");
+      throw new Error(data.error || "Invalid username or password");
     }
 
     localStorage.setItem("token", data.token);
-    localStorage.setItem("role", data.role);
+
+    const payload = JSON.parse(atob(data.token.split(".")[1]));
+    localStorage.setItem("role", payload.role);
 
     window.location.href = "dashboard.html";
 
