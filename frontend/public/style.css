@@ -426,3 +426,8 @@ button:hover {
 .dashboard-container {
   padding: 30px;
 }
+.distance-box {
+  margin-top: 15px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
