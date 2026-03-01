@@ -310,11 +310,11 @@ button:hover {
 }
 .login-body {
   height: 100vh;
-  background: url("images/hero.jpg") center/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("images/yalla%202.jpeg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 
 .login-body::before {
