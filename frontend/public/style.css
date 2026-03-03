@@ -19,8 +19,7 @@ body {
 }
 .image-section {
   position: relative;
-  height: 100%;
-  overflow: 40px 0;
+  overflow: 0;
 }
 
 .main-image {
