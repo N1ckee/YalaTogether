@@ -438,7 +438,7 @@ button:hover {
 }
 @media (min-width: 1024px) {
   .main-image {
-    max-height: 550px;
+    max-height: 500px;
     object-fit: contain;
   }
 }
