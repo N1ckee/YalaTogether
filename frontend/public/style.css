@@ -19,14 +19,21 @@ body {
 }
 .image-section {
   position: relative;
-  max-height: 520px;
-  overflow: hidden;
+  margin: 0;
 }
 
 .main-image {
   width: 100%;
   height: auto;
   display: block;
+}
+
+@media (min-width: 1024px) {
+  .main-image {
+    max-height: 600px;
+    width: 100%;
+    height: auto;
+  }
 }
 
 .hero-title {
