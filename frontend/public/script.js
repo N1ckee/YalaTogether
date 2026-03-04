@@ -92,12 +92,18 @@ index = 0;
 changeRide(index);
 
 },4000);
+
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('show');
+          
+            observer.unobserve(entry.target); 
         }
     });
-}, { threshold: 0.1 });
+}, { 
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px' // يجعل العنصر يظهر قبل أن يصل لمنتصف الشاشة بقليل
+});
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
