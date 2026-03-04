@@ -88,9 +88,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (items[i]) items[i].classList.add("active");
         };
 
-        setInterval(() => {
-            index = (index + 1) % rideImages.length;
-            changeRide(index);
-        }, 4000);
+       
     }
 });
