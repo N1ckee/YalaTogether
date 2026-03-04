@@ -54,6 +54,8 @@ window.addEventListener("scroll", function() {
 
     if (position < screenPosition) {
       element.classList.add("show");
+    } else {
+      element.classList.remove("show");
     }
   });
 });
