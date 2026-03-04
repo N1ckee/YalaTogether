@@ -518,6 +518,11 @@ font-size:18px;
 line-height:1.7;
 }
 
+.about-text h2{
+font-size:36px;
+margin-bottom:15px;
+}
+
 .about-image{
 flex:1;
 display:flex;
