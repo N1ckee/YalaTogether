@@ -44,6 +44,19 @@
     <a href="terms.html">Terms & Conditions</a>
     <a href="privacy.html">Privacy Policy</a>
   </footer>
+<script>
+const elements = document.querySelectorAll(".reveal");
 
+window.addEventListener("scroll", function() {
+  elements.forEach(element => {
+    const position = element.getBoundingClientRect().top;
+    const screenPosition = window.innerHeight / 1.2;
+
+    if (position < screenPosition) {
+      element.classList.add("show");
+    }
+  });
+});
+</script>
 </body>
 </html>
