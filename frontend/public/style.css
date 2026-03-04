@@ -457,22 +457,36 @@ button:hover {
   color: #1e3a8a;
 }
 .image-buttons a {
-  background: rgba(0, 0, 0, 0.35);
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  padding: 18px 55px;
-  font-size: 20px;
+  padding: 16px 48px;
+  font-size: 18px;
   font-weight: 600;
-  border-radius: 50px;
+  border-radius: 40px;
   text-decoration: none;
-  backdrop-filter: blur(6px);
-  transition: all 0.3s ease;
-  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
 }
 
-.image-buttons a:hover {
+.image-buttons a:first-child {
+  background: #1e3a8a;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.35);
+}
+
+.image-buttons a:first-child:hover {
+  background: #16306b;
+  transform: translateY(-3px);
+}
+
+.image-buttons a:last-child {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1.8px solid #ffffff;
+  backdrop-filter: blur(4px);
+}
+
+.image-buttons a:last-child:hover {
   background: #ffffff;
   color: #1e3a8a;
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
 }
