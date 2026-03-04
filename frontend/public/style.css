@@ -201,8 +201,9 @@ flex:1;
 width:100%;
 max-width:420px;
 border-radius:14px;
+transition:opacity 0.4s ease;
 }
-/* Footer */
+
 .footer {
   background-color: #1e3a8a;
   padding: 20px;
