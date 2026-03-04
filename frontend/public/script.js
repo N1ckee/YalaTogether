@@ -93,20 +93,14 @@ changeRide(index);
 
 },4000);
 function revealOnScroll() {
-
   const reveals = document.querySelectorAll(".reveal");
 
   reveals.forEach(element => {
-
     const windowHeight = window.innerHeight;
     const elementTop = element.getBoundingClientRect().top;
-
-    if (elementTop < windowHeight - 100) {
+    
+    if (elementTop < windowHeight - 20) { 
       element.classList.add("show");
     }
-
   });
 }
-
-window.addEventListener("scroll", revealOnScroll);
-window.addEventListener("load", revealOnScroll);
