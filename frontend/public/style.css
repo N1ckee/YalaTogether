@@ -490,3 +490,7 @@ button:hover {
 .reveal-image {
   transition-delay: 0.25s;
 }
+.form-logo {
+  width: 180px;
+  margin-bottom: 25px;
+}
