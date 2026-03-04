@@ -158,39 +158,27 @@ gap:60px;
 flex:1;
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:15px;
+gap:20px;
 }
 
 .why-item{
 background:white;
-padding:18px;
-border-radius:10px;
+padding:24px;
+border-radius:12px;
 cursor:pointer;
-font-size:14px;
+font-size:15px;
 box-shadow:0 5px 15px rgba(0,0,0,0.05);
-transition:0.3s;
+transition:all 0.3s ease;
 }
 
 .why-item:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 20px rgba(0,0,0,0.1);
+transform:translateY(-6px);
+box-shadow:0 12px 25px rgba(0,0,0,0.15);
 }
 
 .why-item.active{
 border-left:4px solid #3b5bdb;
 background:#f6f8ff;
-}
-.why-item{
-opacity:0;
-transform:translateY(20px);
-animation:fadeUp 0.6s forwards;
-}
-
-@keyframes fadeUp{
-to{
-opacity:1;
-transform:translateY(0);
-}
 }
 
 .why-right{
@@ -199,9 +187,12 @@ flex:1;
 
 .why-right img{
 width:100%;
-max-width:420px;
-border-radius:14px;
-transition:opacity 0.4s ease;
+max-width:500px;
+border-radius:16px;
+transition:opacity 0.5s ease;
+}
+.slider-fade{
+opacity:0;
 }
 
 .footer {
