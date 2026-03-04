@@ -151,11 +151,12 @@ font-size:32px;
 .why-container{
 display:flex;
 align-items:center;
-gap:60px;
+gap:90px;
+justify-content: center;
 }
 
 .why-left{
-flex:1;
+flex:1.2;
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:20px;
@@ -182,12 +183,14 @@ background:#f6f8ff;
 }
 
 .why-right{
-flex:1;
+flex: 0.8;
+    display: flex;
+    justify-content: center;
 }
 
 .why-right img{
 width:100%;
-max-width:380px;
+max-width:420px;
 border-radius:16px;
 transition:opacity 0.2s ease-in-out;
 }
