@@ -51,3 +51,24 @@
       .bindPopup(selectedRole + ' location')
       .openPopup();
   });
+const rideImages = [
+"images/yalla6.jpeg",
+"images/yalla7.png",
+"images/yallachild.jpeg",
+"images/yalla4.png"
+];
+
+let currentRide = 0;
+
+function changeRide(index){
+currentRide = index;
+document.getElementById("rideImage").src = rideImages[index];
+}
+
+setInterval(()=>{
+currentRide++;
+if(currentRide >= rideImages.length){
+currentRide = 0;
+}
+document.getElementById("rideImage").src = rideImages[currentRide];
+},3000);
