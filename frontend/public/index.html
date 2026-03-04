@@ -84,21 +84,32 @@
     <a href="terms.html">Terms & Conditions</a>
     <a href="privacy.html">Privacy Policy</a>
   </footer>
+  
 <script>
-const elements = document.querySelectorAll(".reveal");
 
-window.addEventListener("scroll", function() {
-  elements.forEach(element => {
-    const position = element.getBoundingClientRect().top;
-    const screenPosition = window.innerHeight / 1.2;
+const rideImages = [
+"images/yalla6.jpeg",
+"images/yalla7.jpeg",
+"images/yallachild.jpeg",
+"images/yalla4.png"
+];
 
-    if (position < screenPosition) {
-      element.classList.add("show");
-    } else {
-      element.classList.remove("show");
-    }
-  });
-});
+let index = 0;
+
+function changeRide(i){
+index = i;
+document.getElementById("rideImage").src = rideImages[index];
+}
+
+setInterval(()=>{
+index++;
+if(index >= rideImages.length){
+index = 0;
+}
+document.getElementById("rideImage").src = rideImages[index];
+},4000);
+
 </script>
+
 </body>
 </html>
