@@ -60,9 +60,15 @@ const rideImages = [
 
 let currentRide = 0;
 
-function changeRide(index){
-currentRide = index;
-document.getElementById("rideImage").src = rideImages[index];
+function changeRide(i){
+const img = document.getElementById("rideImage");
+
+img.style.opacity = 0;
+
+setTimeout(()=>{
+img.src = rideImages[i];
+img.style.opacity = 1;
+},200);
 }
 
 setInterval(()=>{
