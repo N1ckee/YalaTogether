@@ -53,28 +53,42 @@
   });
 const rideImages = [
 "images/yalla6.jpeg",
-"images/yalla7.png",
+"images/yalla7.jpeg",
 "images/yallachild.jpeg",
 "images/yalla4.png"
 ];
 
-let currentRide = 0;
+let index = 0;
 
 function changeRide(i){
+
+index = i;
+
 const img = document.getElementById("rideImage");
 
-img.style.opacity = 0;
+img.classList.add("slider-fade");
 
 setTimeout(()=>{
-img.src = rideImages[i];
-img.style.opacity = 1;
+img.src = rideImages[index];
+img.classList.remove("slider-fade");
 },200);
+
+document.querySelectorAll(".why-item").forEach(item=>{
+item.classList.remove("active");
+});
+
+document.querySelectorAll(".why-item")[i].classList.add("active");
+
 }
 
 setInterval(()=>{
-currentRide++;
-if(currentRide >= rideImages.length){
-currentRide = 0;
+
+index++;
+
+if(index >= rideImages.length){
+index = 0;
 }
-document.getElementById("rideImage").src = rideImages[currentRide];
-},3000);
+
+changeRide(index);
+
+},4000);
