@@ -36,7 +36,7 @@ body {
 
 @media (min-width: 1024px) {
   .main-image {
-    max-height: 700px;
+    max-height: 750px;
     width: 100%;
     height: auto;
   }
