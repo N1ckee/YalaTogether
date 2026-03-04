@@ -84,51 +84,7 @@
     <a href="terms.html">Terms & Conditions</a>
     <a href="privacy.html">Privacy Policy</a>
   </footer>
-  
-<script>
 
-const rideImages = [
-"images/yalla6.jpeg",
-"images/yalla7.jpeg",
-"images/yallachild.jpeg",
-"images/yalla4.png"
-];
-
-let index = 0;
-
-function changeRide(i){
-
-index = i;
-
-const img = document.getElementById("rideImage");
-
-img.classList.add("slider-fade");
-
-setTimeout(()=>{
-img.src = rideImages[index];
-img.classList.remove("slider-fade");
-},200);
-
-document.querySelectorAll(".why-item").forEach(item=>{
-item.classList.remove("active");
-});
-
-document.querySelectorAll(".why-item")[i].classList.add("active");
-
-}
-
-setInterval(()=>{
-index++;
-
-if(index >= rideImages.length){
-index = 0;
-}
-
-changeRide(index);
-
-},4000);
-
-</script>
 
 </body>
 </html>
