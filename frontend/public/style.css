@@ -187,9 +187,9 @@ flex:1;
 
 .why-right img{
 width:100%;
-max-width:500px;
+max-width:380px;
 border-radius:16px;
-transition:opacity 0.5s ease;
+transition:opacity 0.2s ease-in-out;
 }
 .slider-fade{
 opacity:0;
