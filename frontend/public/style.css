@@ -151,8 +151,12 @@ font-size:32px;
 .why-container{
 display:flex;
 align-items:center;
+justify-content:center;
 gap:60px;
-justify-content: center;
+max-width:1200px;
+margin:auto;
+padding:40px 20px;
+flex-wrap:wrap;
 }
 
 .why-left{
@@ -188,15 +192,19 @@ flex: 0.8;
     justify-content: center;
 }
 
-.why-right img{
+.why-image img{
 width:100%;
-max-width:500px;
+max-width:520px;
 border-radius:16px;
-transition:opacity 0.2s ease-in-out;
+transition:opacity 0.4s ease;
 }
+
 .slider-fade{
 opacity:0;
 }
+
+section {
+  padding: 60px 20px;}
 
 .footer {
   background-color: #1e3a8a;
