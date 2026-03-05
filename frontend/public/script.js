@@ -54,41 +54,57 @@ document.addEventListener("DOMContentLoaded", function() {
                 .openPopup();
         });
     }
+    
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-            } else {
-          entry.target.classList.remove('show');
-            }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      if(entry.isIntersecting){
+     entry.target.classList.add("show");
+      }else{
+      entry.target.classList.remove("show");
+       }
 
-    const imgElement = document.getElementById("rideImage");
-    if (imgElement) {
-        const rideImages = [
-            "images/yalla6.jpeg",
-            "images/yalla7.jpeg",
-            "images/yallachild.jpeg",
-            "images/yalla4.png"
-        ];
-        let index = 0;
-
-        window.changeRide = function(i) {
-            index = i;
-            imgElement.classList.add("slider-fade");
-            setTimeout(() => {
-                imgElement.src = rideImages[index];
-                imgElement.classList.remove("slider-fade");
-            }, 200);
-            document.querySelectorAll(".why-item").forEach(item => item.classList.remove("active"));
-            const items = document.querySelectorAll(".why-item");
-            if (items[i]) items[i].classList.add("active");
-        };
-
-       
-    }
 });
+
+      },{threshold:0.2});
+
+      document.querySelectorAll(".reveal").forEach(el=>{
+       observer.observe(el);
+        });
+    
+  const imgElement = document.getElementById("rideImage");
+
+if (imgElement) {
+
+const rideImages = [
+"images/yalla6.jpeg",
+"images/yalla7.jpeg",
+"images/yallachild.jpeg",
+"images/yalla4.png"
+];
+
+let index = 0;
+
+window.changeRide = function(i){
+
+index = i;
+
+imgElement.style.opacity = 0;
+
+setTimeout(()=>{
+imgElement.src = rideImages[index];
+imgElement.style.opacity = 1;
+},200);
+
+const items = document.querySelectorAll(".why-item");
+
+items.forEach(item=>{
+item.classList.remove("active");
+});
+
+items[i].classList.add("active");
+
+}
+
+}
