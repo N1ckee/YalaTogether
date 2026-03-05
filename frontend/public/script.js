@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+/*document.addEventListener("DOMContentLoaded", function() {
 
     var mapElement = document.getElementById('map');
     if (mapElement) {
@@ -53,25 +53,22 @@ document.addEventListener("DOMContentLoaded", function() {
                 .bindPopup(selectedRole + ' location')
                 .openPopup();
         });
-    }
+    }*/
     
 
-    const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
+   const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    } else {
+      entry.target.classList.remove("show");
+    }
+  });
+}, { threshold: 0.2 });
 
-      if(entry.isIntersecting){
-     entry.target.classList.add("show");
-      }else{
-entry.target.classList.remove("show");
-}
-
+document.querySelectorAll(".reveal").forEach(el => {
+  observer.observe(el);
 });
-
-      },{threshold:0.2});
-
-      document.querySelectorAll(".reveal").forEach(el=>{
-       observer.observe(el);
-        });
     
   const imgElement = document.getElementById("rideImage");
 
