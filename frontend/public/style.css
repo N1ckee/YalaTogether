@@ -701,6 +701,10 @@ padding:15px;
 font-size:16px;
 font-weight:600;
 cursor:pointer;
+color:#1e3a8a; 
+}
+.faq-question:hover{
+color:#2563eb;
 }
 
 .faq-answer{
