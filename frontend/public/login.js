@@ -46,3 +46,18 @@ function togglePassword() {
     password.type = "password";
   }
 }
+const form = document.getElementById("loginForm");
+const button = document.querySelector(".login-btn");
+
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  button.textContent = "Logging in...";
+  button.disabled = true;
+
+  try {
+  } catch (error) {
+    button.textContent = "Log In";
+    button.disabled = false;
+  }
+});
