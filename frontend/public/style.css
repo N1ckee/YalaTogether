@@ -473,6 +473,16 @@ button:hover {
   box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
 }
 
+.forgot{
+text-align:right;
+margin:5px 0 10px 0;
+}
+
+.forgot a{
+font-size:14px;
+color:#2563eb;
+text-decoration:none;
+}
 .create-text {
   margin-top: 15px;
   font-size: 14px;
