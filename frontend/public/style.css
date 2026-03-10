@@ -473,9 +473,12 @@ button:hover {
   box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
 }
 .show-pass{
-display:block;
+display:flex;
+align-items:center;
+justify-content:flex-start;
 font-size:14px;
 margin-top:6px;
+gap:6px;
 }
 
 .forgot{
