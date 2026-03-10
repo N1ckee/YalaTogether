@@ -37,3 +37,12 @@ form.addEventListener("submit", async (e) => {
     errorMessage.classList.remove("hidden");
   }
 });
+function togglePassword() {
+  const password = document.getElementById("password");
+
+  if (password.type === "password") {
+    password.type = "text";
+  } else {
+    password.type = "password";
+  }
+}
