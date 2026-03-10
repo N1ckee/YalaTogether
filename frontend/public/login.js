@@ -2,7 +2,11 @@ const form = document.getElementById("loginForm");
 const errorMessage = document.getElementById("errorMessage");
 
 form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+e.preventDefault();
+
+const button = document.querySelector(".login-btn");
+button.textContent = "Logging in...";
+button.disabled = true;
 
   errorMessage.classList.add("hidden");
   errorMessage.textContent = "";
@@ -32,10 +36,15 @@ form.addEventListener("submit", async (e) => {
 
     window.location.href = "dashboard.html";
 
-  } catch (error) {
-    errorMessage.textContent = error.message;
-    errorMessage.classList.remove("hidden");
   }
+  catch (error) {
+errorMessage.textContent = error.message;
+errorMessage.classList.remove("hidden");
+
+const button = document.querySelector(".login-btn");
+button.textContent = "Log In";
+button.disabled = false;
+}
 });
 function togglePassword() {
   const password = document.getElementById("password");
@@ -46,18 +55,3 @@ function togglePassword() {
     password.type = "password";
   }
 }
-const form = document.getElementById("loginForm");
-const button = document.querySelector(".login-btn");
-
-form.addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  button.textContent = "Logging in...";
-  button.disabled = true;
-
-  try {
-  } catch (error) {
-    button.textContent = "Log In";
-    button.disabled = false;
-  }
-});
