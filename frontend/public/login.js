@@ -2,11 +2,7 @@ const form = document.getElementById("loginForm");
 const errorMessage = document.getElementById("errorMessage");
 
 form.addEventListener("submit", async (e) => {
-e.preventDefault();
-
-const button = document.querySelector(".login-btn");
-button.textContent = "Logging in...";
-button.disabled = true;
+  e.preventDefault();
 
   errorMessage.classList.add("hidden");
   errorMessage.textContent = "";
@@ -14,8 +10,13 @@ button.disabled = true;
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
 
+  const button = document.querySelector(".login-btn");
+  button.textContent = "Logging in...";
+  button.disabled = true;
+
   try {
-    const response = await fetch("/api/login", {
+
+    const response = await fetch("http://localhost:3000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -23,7 +24,13 @@ button.disabled = true;
       body: JSON.stringify({ username, password })
     });
 
-    const data = await response.json();
+    let data;
+
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error("Server returned invalid response.");
+    }
 
     if (!response.ok) {
       throw new Error(data.error || "Invalid username or password");
@@ -31,27 +38,17 @@ button.disabled = true;
 
     localStorage.setItem("token", data.token);
 
-    const payload = JSON.parse(atob(data.token.split(".")[1]));
-    localStorage.setItem("role", payload.role);
-
     window.location.href = "dashboard.html";
 
-  }
-  catch (error) {
-errorMessage.textContent = error.message;
-errorMessage.classList.remove("hidden");
+  } catch (error) {
 
-const button = document.querySelector(".login-btn");
-button.textContent = "Log In";
-button.disabled = false;
-}
+    errorMessage.textContent = error.message;
+    errorMessage.classList.remove("hidden");
+
+  } finally {
+
+    button.textContent = "Log In";
+    button.disabled = false;
+
+  }
 });
-function togglePassword() {
-  const password = document.getElementById("password");
-
-  if (password.type === "password") {
-    password.type = "text";
-  } else {
-    password.type = "password";
-  }
-}
