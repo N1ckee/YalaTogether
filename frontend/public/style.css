@@ -473,17 +473,14 @@ button:hover {
   box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
 }
 .show-pass{
-display:flex;
-align-items:center;
-justify-content:flex-start;
+display:block;
 font-size:14px;
-margin-top:6px;
-gap:6px;
+margin-top:8px;
 }
 
 .forgot{
-text-align:right;
-margin:5px 0 10px 0;
+margin-top:5px;
+font-size:14px;
 }
 
 .forgot a{
