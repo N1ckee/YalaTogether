@@ -782,3 +782,8 @@ color:#555;
 color:#1e3a8a;
 margin-top:30px;
 }
+.ride-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
