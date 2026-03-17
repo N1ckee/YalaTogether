@@ -11,16 +11,17 @@
 
 <div class="container">
 <img src="images/yalla-together.svg" alt="Yala Together" class="form-logo">
-<form id="registerForm">
+<form action="/auth/register" id="registerForm" method="POST">
 
+<input type="text" name="firstname" placeholder="Firstname">
+<input type="text" name="lastname" placeholder="Lastname">
 <input type="text" id="username" placeholder="Username" required>
 <input type="email" id="email" placeholder="Email" required>
-<input type="tel" id="phone" placeholder="Phone Number" required>
+<input type="tel" id="phonenumber" placeholder="Phone Number" required>
 <input type="password" id="password" placeholder="Password" required>
 <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
 
 <div class="role-options">
-<label><input type="checkbox" value="passenger" class="role"> Passenger</label>
 <label><input type="checkbox" value="driver" class="role"> Driver</label>
 </div>
 
@@ -36,7 +37,6 @@
 
 </form>
 </div>
-
 <script>
 const roles = document.querySelectorAll('.role');
 const carFields = document.getElementById('carFields');
@@ -121,8 +121,8 @@ form.addEventListener('submit', function (e) {
 
   alert("Registration successful!");
   window.location.href = "login.html";
+
 });
 </script>
-
 </body>
 </html>

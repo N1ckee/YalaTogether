@@ -20,8 +20,8 @@
 
     <h2>Welcome Back</h2>
 
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Username" required>
+    <form action="/login" id="loginForm" method="POST">
+      <input type="text" id="identifier" placeholder="Username" required>
       <input type="password" id="password" placeholder="Password" required>
       <div id="errorMessage" class="error hidden"></div>
 
@@ -41,7 +41,7 @@
 
 </div>
 
-<script src="login.js"></script>
+<!-- <script src="login.js"></script> -->
 
 </body>
 </html>
