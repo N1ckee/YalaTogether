@@ -78,7 +78,7 @@ const rideImages = [
 "images/yalla6.jpeg",
 "images/yalla7.jpeg",
 "images/yallachild.jpeg",
-"images/yalla4.png"
+"images/yalla8.png"
 ];
 
 let index = 0;
