@@ -111,6 +111,11 @@ p {
   border-radius: 16px;
 }
 
+.hero-content{
+  display:flex;
+  flex-direction:column;
+}
+
 .hero-actions {
   margin-top: 30px;
   display: flex;
@@ -621,19 +626,36 @@ padding:20px;
 border-radius:10px;
 box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
-@media (max-width:768px){
 
+@media (max-width:768px){
+.image-section{
+  height:auto; 
+}
+  
+.image-buttons{
+left:50%;    
+top:60%;
+  transform:translate(-50%,-50%);
+}
+  
+.hero-content{
+flex-direction:column;
+text-align:center;
+gap:30px;
+}
+  
 .hero{
 flex-direction:column;
 text-align:center;
 }
 
 .hero-image img{
-width:100%;
+max-width:280px;
 }
 
 .why-container{
 flex-direction:column;
+  align-items:center;
 gap:30px;
 }
 
@@ -642,7 +664,7 @@ grid-template-columns:1fr;
 }
 
 .why-right img{
-max-width:100%;
+max-width:320px;
 }
 
 }
