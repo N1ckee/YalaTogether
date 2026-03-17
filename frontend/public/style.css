@@ -26,7 +26,7 @@ body {
 .image-section {
   position: relative;
   padding:0;
-  margin-top: -30px;
+  margin-top: -10px;
   width: 100vw;
 }
 
@@ -198,13 +198,13 @@ flex: 1;
 }
 .why-right img{
   width:100%;
-  max-width: 650px;
+  max-width: 550px;
   border-radius:16px;
 }
 
 .why-image img{
 width:100%;
-max-width:650px;
+max-width:550px;
 border-radius:16px;
 transition:opacity 0.4s ease;
 }
