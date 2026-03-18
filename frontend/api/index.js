@@ -10,6 +10,6 @@ app.get("/test", (req, res) => {
   res.json({ ok: true });
 });
 
-app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes);
 
 export default app;

@@ -1,0 +1,23 @@
+<div action="" class="container">
+<img src="images/yalla-together.svg" alt="Yala Together" class="form-logo">
+<form id="registerForm" action="api/auth/register" method="POST">
+
+<input type="text" id="username" placeholder="Username" required>
+<input type="email" id="email" placeholder="Email" required>
+<input type="tel" id="phone" placeholder="Phone Number" required>
+<input type="password" id="password" placeholder="Password" required>
+<input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+
+<div class="role-options">
+<label><input type="checkbox" value="driver" class="role"> Driver</label>
+</div>
+
+<div id="carFields" class="hidden">
+<input type="text" id="carNumber" placeholder="Car Number">
+<input type="text" id="carModel" placeholder="Car Model">
+<input type="text" id="licenseNumber" placeholder="Driving License Number">
+<input type="date" id="licenseDate">
+<div id="licenseError" class="error"></div>
+</div>
+
+<button type="submit">Register</button>
