@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import authRoutes from "./auth";
+import authRoutes from "./auth.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
