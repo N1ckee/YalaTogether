@@ -1,8 +1,15 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const pool = require('./db');
+import express from "express";
+import bcrypt from "bcrypt";
+import pg from "pg";
+
+const { Pool } = pg;
 
 const router = express.Router();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: true }
+});
 
 // REGISTER
 router.post('/register', async (req, res) => {

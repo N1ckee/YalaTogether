@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 module.exports = (req, res) => {
