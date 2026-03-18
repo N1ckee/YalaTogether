@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/test", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/testregister.html"));
+  res.redirect("/testregister.html");
 });
 
 app.use("/auth", authRoutes);
