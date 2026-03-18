@@ -27,12 +27,17 @@ router.post('/register', async (req, res) => {
     username,
     email,
     phonenumber,
-    password
+    password,
+    confirm_password
   } = req.body;
 
   try {
     if (!username || !email || !password) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    if (password !== confirm_password) {
+      return res.status(400).json({ error: "Passwords do not match" });
     }
 
     const password_hash = await bcrypt.hash(password, 10);
