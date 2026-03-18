@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import authRoutes from "./auth.js";
+import authRoutes from "./auth";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
@@ -19,7 +19,4 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-export default (req, res) => {
-  console.log("API route hit");
-  app(req, res);
-};
+export default app;

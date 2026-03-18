@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import pg from "pg";
 
 const { Pool } = pg;
-
 const router = express.Router();
 
 const pool = new Pool({
