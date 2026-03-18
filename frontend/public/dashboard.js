@@ -1,5 +1,5 @@
 const token = localStorage.getItem("token");
-
+let allRides = [];
 if (!token) {
   window.location.href = "login.html";
 }
@@ -131,7 +131,8 @@ async function loadRides() {
       throw new Error(data.error || "Failed to load rides");
     }
 
-    displayRides(data);
+    allRides = data;        
+    displayRides(allRides);
 
   } catch (err) {
     console.error(err);
@@ -139,7 +140,6 @@ async function loadRides() {
   }
 }
 
-// 🧾 عرض الرحلات
 function displayRides(rides) {
   ridesContainer.innerHTML = "";
 
@@ -188,3 +188,19 @@ document.addEventListener("click", async function (e) {
 
 // 🚀 تشغيل تحميل الرحلات
 loadRides();
+document.getElementById("fromInput").addEventListener("input", filterRides);
+document.getElementById("toInput").addEventListener("input", filterRides);
+
+function filterRides() {
+  const fromValue = document.getElementById("fromInput").value.toLowerCase();
+  const toValue = document.getElementById("toInput").value.toLowerCase();
+
+  const filtered = allRides.filter(ride => {
+    return (
+      ride.from.toLowerCase().includes(fromValue) &&
+      ride.to.toLowerCase().includes(toValue)
+    );
+  });
+
+  displayRides(filtered);
+}
