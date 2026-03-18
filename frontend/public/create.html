@@ -118,7 +118,7 @@ const lastname = document.querySelector('[name="lastname"]').value.trim();
     roles: selectedRoles
   };
 
- fetch("/auth/register", {
+ fetch("https://yala-together.vercel.app/auth/register", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
