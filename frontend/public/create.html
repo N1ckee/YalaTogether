@@ -11,7 +11,7 @@
 
 <div class="container">
 <img src="images/yalla-together.svg" alt="Yala Together" class="form-logo">
-<form action="/api/auth/register" id="registerForm" method="POST">
+<form id="registerForm">
 
 <input type="text" name="firstname" placeholder="Firstname">
 <input type="text" name="lastname" placeholder="Lastname">
@@ -58,10 +58,12 @@ roles.forEach(role => {
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-
+    
+const firstname = document.querySelector('[name="firstname"]').value.trim();
+const lastname = document.querySelector('[name="lastname"]').value.trim();
   const username = document.getElementById('username').value.trim();
   const email = document.getElementById('email').value.trim();
-  const phone = document.getElementById('phone').value.trim();
+  const phone = document.getElementById('phonenumber').value.trim();
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
 
@@ -91,11 +93,7 @@ form.addEventListener('submit', function (e) {
     return;
   }
 
-  const existingUser = JSON.parse(localStorage.getItem("user"));
-  if (existingUser && existingUser.username === username) {
-    alert("Username already exists");
-    return;
-  }
+
 
   if (!carFields.classList.contains('hidden')) {
     const selectedDate = new Date(licenseDate.value);
@@ -111,6 +109,8 @@ form.addEventListener('submit', function (e) {
   }
 
   const userData = {
+      firstname,
+      lastname,
     username,
     email,
     phone,
@@ -118,12 +118,31 @@ form.addEventListener('submit', function (e) {
     roles: selectedRoles
   };
 
-  localStorage.setItem("user", JSON.stringify(userData));
+ fetch("/auth/register", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(userData)
+})
+.then(async res => {
+  const data = await res.json();
 
+  if (!res.ok) {
+    throw new Error(data.error || "Registration failed");
+  }
+
+  return data;
+})
+.then(data => {
   alert("Registration successful!");
   window.location.href = "login.html";
-
+})
+.catch(err => {
+  console.error(err);
+  licenseError.textContent = err.message;
 });
+    });
 </script>
    
 </body>
