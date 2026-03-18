@@ -18,6 +18,12 @@ try {
 
 document.getElementById("welcomeText").textContent =
   "Welcome " + username + " (" + role + ")";
+if (role === "driver") {
+  const form = document.getElementById("driverForm");
+  if (form) {
+    form.style.display = "block";
+  }
+}
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.clear();
@@ -143,16 +149,24 @@ async function loadRides() {
 function displayRides(rides) {
   ridesContainer.innerHTML = "";
 
-  rides.forEach(ride => {
+  const filteredRides =
+    role === "driver"
+      ? rides.filter(ride => ride.driver === username)
+      : rides;
+if (filteredRides.length === 0) {
+    ridesContainer.innerHTML = "<p>No rides yet</p>";
+    return;
+  }
+  filteredRides.forEach(ride => {
     const div = document.createElement("div");
     div.classList.add("ride-card");
 
     div.innerHTML = `
       <h3>${ride.from} → ${ride.to}</h3>
       <p>Driver: ${ride.driver}</p>
-      <p>Car: ${ride.car}</p>
+      <p>Car: ${ride.car || "N/A"}</p>
       <p>Seats left: ${ride.seats}</p>
-      <button class="book-btn">Book</button>
+      <button class="book-btn" data-id="${ride.id}">Book</button>
     `;
 
     ridesContainer.appendChild(div);
@@ -162,14 +176,17 @@ function displayRides(rides) {
 // 📌 حجز رحلة
 document.addEventListener("click", async function (e) {
   if (e.target.classList.contains("book-btn")) {
-    try {
-      const response = await fetch("/api/book", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token
-        }
-      });
+  const rideId = e.target.dataset.id;
+
+  try {
+    const response = await fetch("/api/book", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({ rideId })
+    });
 
       const data = await response.json();
 
@@ -203,4 +220,49 @@ function filterRides() {
   });
 
   displayRides(filtered);
+}
+const addBtn = document.getElementById("addRideBtn");
+
+if (addBtn) {
+  addBtn.addEventListener("click", async () => {
+    const from = document.getElementById("driverFrom").value;
+    const to = document.getElementById("driverTo").value;
+    const time = document.getElementById("driverTime").value;
+    const seats = document.getElementById("driverSeats").value;
+
+    if (!from || !to || !time || !seats) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/rides", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+          from,
+          to,
+          time,
+          seats
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to add ride");
+      }
+
+      alert("✅ Ride added!");
+
+      loadRides();
+
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  });
 }
