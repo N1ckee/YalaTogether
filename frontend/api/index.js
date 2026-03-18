@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/test", (req, res) => {
-  res.json({ ok: true });
+  res.sendFile(path.join(__dirname, "../public/testregister.html"));
 });
 
 app.use("/auth", authRoutes);
