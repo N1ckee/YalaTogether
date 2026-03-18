@@ -118,3 +118,73 @@ document.getElementById("useLocationBtn").addEventListener("click", () => {
     }).addTo(map);
   });
 });
+// 🚗 عرض الرحلات من الباك اند
+const ridesContainer = document.getElementById("contentArea");
+
+async function loadRides() {
+  try {
+    const response = await fetch("/api/rides");
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Failed to load rides");
+    }
+
+    displayRides(data);
+
+  } catch (err) {
+    console.error(err);
+    ridesContainer.innerHTML = "<p>❌ Failed to load rides</p>";
+  }
+}
+
+// 🧾 عرض الرحلات
+function displayRides(rides) {
+  ridesContainer.innerHTML = "";
+
+  rides.forEach(ride => {
+    const div = document.createElement("div");
+    div.classList.add("ride-card");
+
+    div.innerHTML = `
+      <h3>${ride.from} → ${ride.to}</h3>
+      <p>Driver: ${ride.driver}</p>
+      <p>Car: ${ride.car}</p>
+      <p>Seats left: ${ride.seats}</p>
+      <button class="book-btn">Book</button>
+    `;
+
+    ridesContainer.appendChild(div);
+  });
+}
+
+// 📌 حجز رحلة
+document.addEventListener("click", async function (e) {
+  if (e.target.classList.contains("book-btn")) {
+    try {
+      const response = await fetch("/api/book", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Booking failed");
+      }
+
+      alert("✅ Ride booked!");
+
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  }
+});
+
+// 🚀 تشغيل تحميل الرحلات
+loadRides();
