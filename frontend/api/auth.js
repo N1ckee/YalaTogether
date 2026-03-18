@@ -10,6 +10,15 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: true }
 });
 
+// TEST
+router.get("/test", (req, res) => {
+  res.json({
+    ok: true,
+    message: "Auth route is working",
+    time: new Date().toISOString()
+  });
+});
+
 // REGISTER
 router.post('/register', async (req, res) => {
   const {
