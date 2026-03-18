@@ -163,6 +163,7 @@ if (filteredRides.length === 0) {
 
     div.innerHTML = `
       <h3>${ride.from} → ${ride.to}</h3>
+      <p>Time: ${ride.time}</p>
       <p>Driver: ${ride.driver}</p>
       <p>Car: ${ride.car || "N/A"}</p>
       <p>Seats left: ${ride.seats}</p>
