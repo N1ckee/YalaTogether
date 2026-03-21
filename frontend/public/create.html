@@ -52,15 +52,18 @@ roles.forEach(role => {
       carFields.classList.remove('hidden');
     } else {
       carFields.classList.add('hidden');
+      if (licenseError) licenseError.textContent = "";
     }
   });
 });
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-    
-const firstname = document.querySelector('[name="firstname"]').value.trim();
-const lastname = document.querySelector('[name="lastname"]').value.trim();
+
+  if (licenseError) licenseError.textContent = "";
+
+  const firstname = document.querySelector('[name="firstname"]').value.trim();
+  const lastname = document.querySelector('[name="lastname"]').value.trim();
   const username = document.getElementById('username').value.trim();
   const email = document.getElementById('email').value.trim();
   const phone = document.getElementById('phonenumber').value.trim();
@@ -93,60 +96,65 @@ const lastname = document.querySelector('[name="lastname"]').value.trim();
     return;
   }
 
-
-
-  if (!carFields.classList.contains('hidden')) {
+  // Only validate license if driver role is selected
+  if (selectedRoles.includes('driver')) {
+    if (!licenseDate.value) {
+      if (licenseError) licenseError.textContent = "Please enter your license issue date";
+      return;
+    }
     const selectedDate = new Date(licenseDate.value);
     const today = new Date();
-    const years = (today - selectedDate) / (1000 * 60 * 60 * 24 * 365);
-
-    if (years < 2) {
-      licenseError.textContent = "License rejected: less than 2 years";
-      return;
-    } else {
-      licenseError.textContent = "";
+    // Calculate full years difference
+    let years = today.getFullYear() - selectedDate.getFullYear();
+    const m = today.getMonth() - selectedDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < selectedDate.getDate())) {
+      years--;
     }
+    if (years < 2) {
+      if (licenseError) licenseError.textContent = "License rejected: less than 2 years";
+      return;
+    }
+    if (licenseError) licenseError.textContent = "";
   }
 
   const userData = {
-      firstname,
-      lastname,
+    firstname,
+    lastname,
     username,
     email,
     phone,
     password,
     roles: selectedRoles
   };
-    
-//fråga nick
 
-
-    
-fetch("http://localhost:3000/auth/register", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(userData)
-})
-.then(async res => {
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.error || "Registration failed");
+  // Add licenseDate if driver role is selected
+  if (selectedRoles.includes('driver')) {
+    userData.licenseDate = licenseDate.value;
   }
 
-  return data;
-})
-.then(data => {
-  alert("Registration successful!");
-  window.location.href = "login.html";
-})
-.catch(err => {
-  console.error(err);
-  licenseError.textContent = err.message;
+  fetch("/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(userData)
+  })
+  .then(async res => {
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || "Registration failed");
+    }
+    return data;
+  })
+  .then(data => {
+    alert("Registration successful!");
+    window.location.href = "login.html";
+  })
+  .catch(err => {
+    console.error(err);
+    if (licenseError) licenseError.textContent = err.message;
+  });
 });
-    });
 </script>
    
 </body>
