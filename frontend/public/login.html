@@ -31,15 +31,22 @@
       
       <button type="submit" class="login-btn">Log In</button>
     </form>
-
-    <p class="create-text">
-      Don’t have an account?
-      <a href="create.html">Create Account</a>
-    </p>
-
-  </div>
-
-</div>
-
-</body>
-</html>
+<script>
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  const response = await fetch(form.action, {
+    method: 'POST',
+    body: data,
+  });
+  const errorDiv = document.getElementById('errorMessage');
+  if (!response.ok) {
+    const result = await response.json();
+    errorDiv.textContent = result.error || 'Login failed';
+    errorDiv.classList.remove('hidden');
+  } else {
+    window.location.href = '/dashboard'; // or wherever you want to redirect
+  }
+});
+</script>

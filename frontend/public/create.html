@@ -70,14 +70,15 @@ form.addEventListener('submit', function (e) {
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
 
-  const selectedRoles = [...roles]
-    .filter(r => r.checked)
-    .map(r => r.value);
-
-  if (selectedRoles.length === 0) {
-    alert("Please select at least one role");
-    return;
-  }
+const selectedRoles = [...roles]
+  .filter(r => r.checked)
+  .map(r => r.value);
+// If no roles are checked, selectedRoles will be an empty array
+// Remove the check for at least one role
+// if (selectedRoles.length === 0) {
+//   alert("Please select at least one role");
+//   return;
+// }
 
   if (password !== confirmPassword) {
     alert("Passwords do not match");
