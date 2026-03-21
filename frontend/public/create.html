@@ -15,14 +15,14 @@
 
 <input type="text" name="firstname" placeholder="Firstname">
 <input type="text" name="lastname" placeholder="Lastname">
-<input type="text" id="username" placeholder="Username" required>
-<input type="email" id="email" placeholder="Email" required>
-<input type="tel" id="phonenumber" placeholder="Phone Number" required>
-<input type="password" id="password" placeholder="Password" required>
-<input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+<input type="text" name="username" id="username" placeholder="Username" required>
+<input type="email" name="email" id="email" placeholder="Email" required>
+<input type="tel" name="phonenumber" id="phonenumber" placeholder="Phone Number" required>
+<input type="password" name="password" id="password" placeholder="Password" required>
+<input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required>
 
 <div class="role-options">
-<label><input type="checkbox" value="driver" class="role"> Driver</label>
+<label><input type="checkbox" id="driver" value="driver" class="role">Register as a Driver</label>
 </div>
 
 <div id="carFields" class="hidden">
@@ -69,16 +69,8 @@ form.addEventListener('submit', function (e) {
   const phone = document.getElementById('phonenumber').value.trim();
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
+  const is_driver = document.getElementById('driver').checked;
 
-const selectedRoles = [...roles]
-  .filter(r => r.checked)
-  .map(r => r.value);
-// If no roles are checked, selectedRoles will be an empty array
-// Remove the check for at least one role
-// if (selectedRoles.length === 0) {
-//   alert("Please select at least one role");
-//   return;
-// }
 
   if (password !== confirmPassword) {
     alert("Passwords do not match");
@@ -98,7 +90,7 @@ const selectedRoles = [...roles]
   }
 
   // Only validate license if driver role is selected
-  if (selectedRoles.includes('driver')) {
+  if (is_driver) {
     if (!licenseDate.value) {
       if (licenseError) licenseError.textContent = "Please enter your license issue date";
       return;
@@ -129,7 +121,7 @@ const selectedRoles = [...roles]
   };
 
   // Add licenseDate if driver role is selected
-  if (selectedRoles.includes('driver')) {
+  if (is_driver) {
     userData.licenseDate = licenseDate.value;
   }
 
