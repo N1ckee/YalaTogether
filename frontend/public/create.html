@@ -117,12 +117,13 @@ form.addEventListener('submit', function (e) {
     email,
     phone,
     password,
-    roles: selectedRoles
+    roles: "user"
   };
 
   // Add licenseDate if driver role is selected
   if (is_driver) {
     userData.licenseDate = licenseDate.value;
+    userData.roles = "driver"
   }
 
   fetch("/auth/register", {
