@@ -1,20 +1,23 @@
-const token = localStorage.getItem("token");
-let allRides = [];
-if (!token) {
-  // window.location.href = "login.html";
-}
+// Example: Fetch user info from backend and use it in the dashboard
+fetch('/api/userinfo', {
+  credentials: 'include' // Send cookies if JWT is stored in a cookie
+})
+  .then(res => {
+    if (!res.ok) throw new Error('Failed to fetch user info');
+    return res.json();
+  })
+  .then(data => {
+    const username = data.username;
+    const role = data.role;
+    // Use username and role as needed, e.g., display on dashboard
+    document.getElementById('username').textContent = username;
+    document.getElementById('role').textContent = role;
+  })
+  .catch(err => {
+    console.error('Error fetching user info:', err);
+    // Optionally redirect to login or show error
+  });
 
-let role = "";
-let username = "";
-
-try {
-  const payload = JSON.parse(atob(token.split(".")[1]));
-  role = payload.role;
-  username = payload.username;
-} catch (err) {
-  localStorage.removeItem("token");
-  // window.location.href = "login.html";
-}
 
 document.getElementById("welcomeText").textContent =
   "Welcome " + username + " (" + role + ")";
@@ -27,7 +30,7 @@ if (role === "driver") {
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.clear();
-  // window.location.href = "login.html";
+  window.location.href = "login.html";
 });
 
 const map = L.map("map").setView([59.3293, 18.0686], 6);
