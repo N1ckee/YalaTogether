@@ -47,12 +47,18 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     body: JSON.stringify(data),
   });
   const errorDiv = document.getElementById('errorMessage');
+  let result = {};
+  const contentType = response.headers.get("content-type") || "";
+  if (contentType.includes("application/json")) {
+    result = await response.json();
+  } else {
+    result = { error: await response.text() };
+  }
   if (!response.ok) {
-    const result = await response.json();
     errorDiv.textContent = result.error || 'Login failed';
     errorDiv.classList.remove('hidden');
   } else {
-    window.location.href = '/dashboard.html'; // or wherever you want to redirect
+    window.location.href = '/dashboard';
   }
 });
 </script>
