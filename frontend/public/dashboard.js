@@ -1,7 +1,7 @@
 const token = localStorage.getItem("token");
 let allRides = [];
 if (!token) {
-  window.location.href = "login.html";
+  // window.location.href = "login.html";
 }
 
 let role = "";
@@ -137,7 +137,7 @@ async function loadRides() {
       throw new Error(data.error || "Failed to load rides");
     }
 
-    allRides = data;        
+    allRides = data;
     displayRides(allRides);
 
   } catch (err) {
@@ -153,7 +153,7 @@ function displayRides(rides) {
     role === "driver"
       ? rides.filter(ride => ride.driver === username)
       : rides;
-if (filteredRides.length === 0) {
+  if (filteredRides.length === 0) {
     ridesContainer.innerHTML = "<p>No rides yet</p>";
     return;
   }
@@ -177,17 +177,30 @@ if (filteredRides.length === 0) {
 // 📌 حجز رحلة
 document.addEventListener("click", async function (e) {
   if (e.target.classList.contains("book-btn")) {
-  const rideId = e.target.dataset.id;
+    const rideId = e.target.dataset.id;
+    const ride = allRides.find(r => r.id == rideId);
+    if (!ride) {
+      alert("Ride not found.");
+      return;
+    }
+    if (ride.driver === username) {
+      alert("You cannot book your own ride.");
+      return;
+    }
+    if (ride.seats <= 0) {
+      alert("No seats left for this ride.");
+      return;
+    }
 
-  try {
-    const response = await fetch("/api/book", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
-      },
-      body: JSON.stringify({ rideId })
-    });
+    try {
+      const response = await fetch("/api/book", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ rideId })
+      });
 
       const data = await response.json();
 
@@ -196,6 +209,7 @@ document.addEventListener("click", async function (e) {
       }
 
       alert("✅ Ride booked!");
+      loadRides(); // Refresh rides after booking
 
     } catch (err) {
       console.error(err);
