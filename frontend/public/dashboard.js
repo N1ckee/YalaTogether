@@ -13,7 +13,7 @@ try {
   username = payload.username;
 } catch (err) {
   localStorage.removeItem("token");
-  window.location.href = "login.html";
+  // window.location.href = "login.html";
 }
 
 document.getElementById("welcomeText").textContent =
@@ -27,7 +27,7 @@ if (role === "driver") {
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.clear();
-  window.location.href = "login.html";
+  // window.location.href = "login.html";
 });
 
 const map = L.map("map").setView([59.3293, 18.0686], 6);
