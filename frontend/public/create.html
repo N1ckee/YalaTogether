@@ -66,13 +66,13 @@ form.addEventListener('submit', function (e) {
   const lastname = document.querySelector('[name="lastname"]').value.trim();
   const username = document.getElementById('username').value.trim();
   const email = document.getElementById('email').value.trim();
-  const phone = document.getElementById('phonenumber').value.trim();
+  const phonenumber = document.getElementById('phonenumber').value.trim();
   const password = document.getElementById('password').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
+  const confirm_password = document.getElementById('confirmPassword').value;
   const is_driver = document.getElementById('driver').checked;
 
 
-  if (password !== confirmPassword) {
+  if (password !== confirm_password) {
     alert("Passwords do not match");
     return;
   }
@@ -115,15 +115,14 @@ form.addEventListener('submit', function (e) {
     lastname,
     username,
     email,
-    phone,
+    phonenumber,
     password,
-    roles: "user"
+    confirm_password
   };
 
   // Add licenseDate if driver role is selected
   if (is_driver) {
     userData.licenseDate = licenseDate.value;
-    userData.roles = "driver"
   }
 
   fetch("/auth/register", {

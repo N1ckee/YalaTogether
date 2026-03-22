@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
     email,
     phonenumber,
     password,
-    confirm_password
+    role
   } = req.body;
 
   try {
@@ -36,8 +36,8 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    if (password !== confirm_password) {
-      return res.status(400).json({ error: "Passwords do not match" });
+    if (role !== 'user') {
+      role = "driver"
     }
 
     const password_hash = await bcrypt.hash(password, 10);
@@ -54,7 +54,7 @@ router.post('/register', async (req, res) => {
         email,
         phonenumber || null,
         password_hash,
-        'user'
+        role
       ]
     );
 
@@ -100,7 +100,9 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    res.json({
+    res.redirect("../public/dashboard.html")
+    /*
+    rejectUnauthorizeds.json({
       message: 'Login successful',
       user: {
         id: user.id,
@@ -109,6 +111,7 @@ router.post('/login', async (req, res) => {
         role: user.role
       }
     });
+    */
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
