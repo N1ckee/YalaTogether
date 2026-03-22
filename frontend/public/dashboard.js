@@ -4,7 +4,7 @@ let role = '';
 let token = '';
 
 // Fetch user info from backend and initialize dashboard
-fetch('/userinfo', {
+fetch('/userinfo/user', {
   credentials: 'include'
 })
   .then(res => {
