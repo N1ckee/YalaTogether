@@ -1,12 +1,12 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import pg from "pg";
+import jwt from "jsonwebtoken";
 
 const { Pool } = pg;
 const router = express.Router();
-
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.DATABASE_URL + '?sslmode=verify-full',
   ssl: { rejectUnauthorized: true }
 });
 
@@ -100,15 +100,26 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
+    // Generate JWT token after verifying credentials
+    const token = jwt.sign(
+      {
+        id: user.id,
+        username: user.username,
+        role: user.role
+      },
+      process.env.JWT_SECRET, // Make sure this is set in your environment
+      { expiresIn: '1d' }
+    );
+
     // After verifying credentials and generating token
     res.cookie('token', token, {
       httpOnly: true,
-      secure: true, // set to false if not using HTTPS in development
+      secure: process.env.NODE_ENV === 'production', // set to false if not using HTTPS in development
       sameSite: 'strict',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
 
-    res.redirect("/dashboard.html")
+    res.redirect("/dashboard.html");
     /*
     rejectUnauthorizeds.json({
       message: 'Login successful',
