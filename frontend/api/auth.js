@@ -100,54 +100,37 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    try {
-      // Ensure JWT_SECRET is set
-      if (!process.env.JWT_SECRET) {
-        return res.status(500).json({ error: "JWT_SECRET environment variable is not set" });
-      }
-
-      if (!user) {
-        return res.status(401).json({ error: "Invalid credentials" });
-      }
-
-      // Generate JWT token after verifying credentials
-      const token = jwt.sign(
-        {
-          id: user.id,
-          username: user.username,
-          role: user.role
-        },
-        process.env.JWT_SECRET,
-        { expiresIn: '1d' }
-      );
-
-      res.cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000
-      });
-
-      res.status(200).json({ message: "Login successful" });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Server error" });
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({ error: "JWT_SECRET environment variable is not set" });
     }
-    res.redirect("/dashboard.html");
-    /*
-    rejectUnauthorizeds.json({
-      message: 'Login successful',
-      user: {
+
+    // Generate JWT token after verifying credentials
+    const token = jwt.sign(
+      {
         id: user.id,
         username: user.username,
-        email: user.email,
         role: user.role
-      }
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000
     });
-    */
+
+    return res.status(200).json({ message: "Login successful" });
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({
+      error: process.env.NODE_ENV === 'development'
+        ? (err.message || "Server error")
+        : "Server error"
+    });
   }
 });
 
