@@ -1,38 +1,48 @@
-// Example: Fetch user info from backend and use it in the dashboard
+// Define user/session variables at the top
+let username = '';
+let role = '';
+let token = '';
+
+// Fetch user info from backend and initialize dashboard
 fetch('/api/userinfo', {
-  credentials: 'include' // Send cookies if JWT is stored in a cookie
+  credentials: 'include'
 })
   .then(res => {
     if (!res.ok) throw new Error('Failed to fetch user info');
+    // Optionally, get token from cookie or elsewhere if needed
     return res.json();
   })
   .then(data => {
-    const username = data.username;
-    const role = data.role;
-    // Use username and role as needed, e.g., display on dashboard
+    username = data.username;
+    role = data.role;
+    // Optionally, set token if returned by backend
+    // token = data.token;
+
     document.getElementById('username').textContent = username;
     document.getElementById('role').textContent = role;
+
+    document.getElementById("welcomeText").textContent =
+      "Welcome " + username + " (" + role + ")";
+    if (role === "driver") {
+      const form = document.getElementById("driverForm");
+      if (form) {
+        form.style.display = "block";
+      }
+    }
+
+    // Now initialize the rest of the dashboard logic
+    initDashboard();
   })
   .catch(err => {
     console.error('Error fetching user info:', err);
     // Optionally redirect to login or show error
+    window.location.href = "login.html";
   });
 
-
-document.getElementById("welcomeText").textContent =
-  "Welcome " + username + " (" + role + ")";
-if (role === "driver") {
-  const form = document.getElementById("driverForm");
-  if (form) {
-    form.style.display = "block";
-  }
+// All dashboard logic that depends on user info goes here
+function initDashboard() {
+  // ... move the rest of your dashboard.js code here ...
 }
-
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  localStorage.clear();
-  window.location.href = "login.html";
-});
-
 const map = L.map("map").setView([59.3293, 18.0686], 6);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
