@@ -100,6 +100,14 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
+    // After verifying credentials and generating token
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true, // set to false if not using HTTPS in development
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
+
     res.redirect("/dashboard.html")
     /*
     rejectUnauthorizeds.json({
