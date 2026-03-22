@@ -100,25 +100,39 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Generate JWT token after verifying credentials
-    const token = jwt.sign(
-      {
-        id: user.id,
-        username: user.username,
-        role: user.role
-      },
-      process.env.JWT_SECRET, // Make sure this is set in your environment
-      { expiresIn: '1d' }
-    );
+    try {
+      // Ensure JWT_SECRET is set
+      if (!process.env.JWT_SECRET) {
+        return res.status(500).json({ error: "JWT_SECRET environment variable is not set" });
+      }
 
-    // After verifying credentials and generating token
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // set to false if not using HTTPS in development
-      sameSite: 'strict',
-      maxAge: 24 * 60 * 60 * 1000 // 1 day
-    });
+      if (!user) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
 
+      // Generate JWT token after verifying credentials
+      const token = jwt.sign(
+        {
+          id: user.id,
+          username: user.username,
+          role: user.role
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+      );
+
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 24 * 60 * 60 * 1000
+      });
+
+      res.status(200).json({ message: "Login successful" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server error" });
+    }
     res.redirect("/dashboard.html");
     /*
     rejectUnauthorizeds.json({
