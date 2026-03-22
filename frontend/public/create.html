@@ -62,13 +62,16 @@ form.addEventListener('submit', function (e) {
 
   if (licenseError) licenseError.textContent = "";
 
-  const firstname = document.querySelector('[name="firstname"]').value.trim();
-  const lastname = document.querySelector('[name="lastname"]').value.trim();
-  const username = document.getElementById('username').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const phonenumber = document.getElementById('phonenumber').value.trim();
-  const password = document.getElementById('password').value;
-  const confirm_password = document.getElementById('confirmPassword').value;
+
+  const form = document.querySelector('form');
+
+  const firstname = form.elements['firstname'].value.trim();
+  const lastname = form.elements['lastname'].value.trim();
+  const username = form.elements['username'].value.trim();
+  const email = form.elements['email'].value.trim();
+  const phonenumber = form.elements['phonenumber'].value.trim();
+  const password = form.elements['password'].value;
+  const confirm_password = form.elements['confirmPassword'].value;
   const is_driver = document.getElementById('driver').checked;
 
 
@@ -84,7 +87,7 @@ form.addEventListener('submit', function (e) {
   }
 
   const phoneRegex = /^[0-9]{7,15}$/;
-  if (!phoneRegex.test(phone)) {
+  if (!phoneRegex.test(phonenumber)) {
     alert("Invalid phone number");
     return;
   }

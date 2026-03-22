@@ -100,7 +100,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    res.redirect("../public/dashboard.html")
+    res.redirect("/dashboard.html")
     /*
     rejectUnauthorizeds.json({
       message: 'Login successful',
