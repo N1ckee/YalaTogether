@@ -135,21 +135,26 @@ form.addEventListener('submit', function (e) {
     },
     body: JSON.stringify(userData)
   })
-  .then(async res => {
-    const data = await res.json();
-    if (!res.ok) {
-      throw new Error(data.error || "Registration failed");
-    }
-    return data;
-  })
-  .then(data => {
-    alert("Registration successful!");
-    window.location.href = "login.html";
-  })
-  .catch(err => {
-    console.error(err);
-    if (licenseError) licenseError.textContent = err.message;
-  });
+.then(async res => {
+  let data = {};
+  try {
+    data = await res.json();
+  } catch {
+    // If response is not JSON, keep data as empty object
+  }
+  if (!res.ok) {
+    throw new Error(data.error || "Registration failed");
+  }
+  return data;
+})
+.then(data => {
+  alert("Registration successful!");
+  window.location.href = "login.html";
+})
+.catch(err => {
+  console.error(err);
+  if (licenseError) licenseError.textContent = err.message || "Registration failed";
+});
 });
 </script>
    

@@ -7,20 +7,21 @@ form.addEventListener("submit", async (e) => {
   errorMessage.classList.add("hidden");
   errorMessage.textContent = "";
 
-  const identifier = form.elements["identifier"].value.trim();
-  const password = form.elements["password"].value;
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  const button = form.querySelector(".login-btn");
+  const button = document.querySelector(".login-btn");
   button.textContent = "Logging in...";
   button.disabled = true;
 
   try {
-    const response = await fetch(form.action, {
+
+    const response = await fetch("/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ identifier, password })
+      body: JSON.stringify({ username, password })
     });
 
     let data;
@@ -37,12 +38,17 @@ form.addEventListener("submit", async (e) => {
 
     localStorage.setItem("token", data.token);
 
-    window.location.href = "/dashboard";
+    window.location.href = "dashboard.html";
+
   } catch (error) {
+
     errorMessage.textContent = error.message;
     errorMessage.classList.remove("hidden");
+
   } finally {
+
     button.textContent = "Log In";
     button.disabled = false;
+
   }
 });
