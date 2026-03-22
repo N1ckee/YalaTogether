@@ -39,31 +39,31 @@
 </div>
     
 <script>
-const roles = document.querySelectorAll('.role');
-const carFields = document.getElementById('carFields');
-const form = document.getElementById('registerForm');
-const licenseDate = document.getElementById('licenseDate');
-const licenseError = document.getElementById('licenseError');
+const roles = document.queryselectorall('.role');
+const carfields = document.getelementbyid('carfields');
+const form = document.getelementbyid('registerform');
+const licensedate = document.getelementbyid('licensedate');
+const licenseerror = document.getelementbyid('licenseerror');
 
-roles.forEach(role => {
-  role.addEventListener('change', () => {
-    const driverChecked = [...roles].some(r => r.value === 'driver' && r.checked);
-    if (driverChecked) {
-      carFields.classList.remove('hidden');
+roles.foreach(role => {
+  role.addeventlistener('change', () => {
+    const driverchecked = [...roles].some(r => r.value === 'driver' && r.checked);
+    if (driverchecked) {
+      carfields.classlist.remove('hidden');
     } else {
-      carFields.classList.add('hidden');
-      if (licenseError) licenseError.textContent = "";
+      carfields.classlist.add('hidden');
+      if (licenseerror) licenseerror.textcontent = "";
     }
   });
 });
 
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
+form.addeventlistener('submit', function (e) {
+  e.preventdefault();
 
-  if (licenseError) licenseError.textContent = "";
+  if (licenseerror) licenseerror.textcontent = "";
 
 
-  const form = document.querySelector('form');
+  const form = document.queryselector('form');
 
   const firstname = form.elements['firstname'].value.trim();
   const lastname = form.elements['lastname'].value.trim();
@@ -71,49 +71,49 @@ form.addEventListener('submit', function (e) {
   const email = form.elements['email'].value.trim();
   const phonenumber = form.elements['phonenumber'].value.trim();
   const password = form.elements['password'].value;
-  const confirm_password = form.elements['confirmPassword'].value;
-  const is_driver = document.getElementById('driver').checked;
+  const confirm_password = form.elements['confirmpassword'].value;
+  const is_driver = document.getelementbyid('driver').checked;
 
 
   if (password !== confirm_password) {
-    alert("Passwords do not match");
+    alert("passwords do not match");
     return;
   }
 
-  const strongPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-  if (!strongPassword.test(password)) {
-    alert("Password must contain letters and numbers (min 6 characters)");
+  const strongpassword = /^(?=.*[a-za-z])(?=.*\d)[a-za-z\d]{6,}$/;
+  if (!strongpassword.test(password)) {
+    alert("password must contain letters and numbers (min 6 characters)");
     return;
   }
 
-  const phoneRegex = /^[0-9]{7,15}$/;
-  if (!phoneRegex.test(phonenumber)) {
-    alert("Invalid phone number");
+  const phoneregex = /^[0-9]{7,15}$/;
+  if (!phoneregex.test(phonenumber)) {
+    alert("invalid phone number");
     return;
   }
 
-  // Only validate license if driver role is selected
+  // only validate license if driver role is selected
   if (is_driver) {
-    if (!licenseDate.value) {
-      if (licenseError) licenseError.textContent = "Please enter your license issue date";
+    if (!licensedate.value) {
+      if (licenseerror) licenseerror.textcontent = "please enter your license issue date";
       return;
     }
-    const selectedDate = new Date(licenseDate.value);
-    const today = new Date();
-    // Calculate full years difference
-    let years = today.getFullYear() - selectedDate.getFullYear();
-    const m = today.getMonth() - selectedDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < selectedDate.getDate())) {
+    const selecteddate = new date(licensedate.value);
+    const today = new date();
+    // calculate full years difference
+    let years = today.getfullyear() - selecteddate.getfullyear();
+    const m = today.getmonth() - selecteddate.getmonth();
+    if (m < 0 || (m === 0 && today.getdate() < selecteddate.getdate())) {
       years--;
     }
     if (years < 2) {
-      if (licenseError) licenseError.textContent = "License rejected: less than 2 years";
+      if (licenseerror) licenseerror.textcontent = "license rejected: less than 2 years";
       return;
     }
-    if (licenseError) licenseError.textContent = "";
+    if (licenseerror) licenseerror.textcontent = "";
   }
 
-  const userData = {
+  const userdata = {
     firstname,
     lastname,
     username,
@@ -123,37 +123,37 @@ form.addEventListener('submit', function (e) {
     confirm_password
   };
 
-  // Add licenseDate if driver role is selected
+  // add licensedate if driver role is selected
   if (is_driver) {
-    userData.licenseDate = licenseDate.value;
+    userdata.licensedate = licensedate.value;
   }
 
   fetch("/auth/register", {
-    method: "POST",
+    method: "post",
     headers: {
-      "Content-Type": "application/json"
+      "content-type": "application/json"
     },
-    body: JSON.stringify(userData)
+    body: json.stringify(userdata)
   })
 .then(async res => {
   let data = {};
   try {
     data = await res.json();
   } catch {
-    // If response is not JSON, keep data as empty object
+    // if response is not json, keep data as empty object
   }
   if (!res.ok) {
-    throw new Error(data.error || "Registration failed");
+    throw new error(data.error || "registration failed");
   }
   return data;
 })
 .then(data => {
-  alert("Registration successful!");
+  alert("registration successful!");
   window.location.href = "login.html";
 })
 .catch(err => {
   console.error(err);
-  if (licenseError) licenseError.textContent = err.message || "Registration failed";
+  if (licenseerror) licenseerror.textcontent = err.message || "registration failed";
 });
 });
 </script>
