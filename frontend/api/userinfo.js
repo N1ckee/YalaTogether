@@ -1,5 +1,5 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
+import express from 'express';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 const SECRET = process.env.JWT_SECRET; // Set your secret in environment variables
@@ -21,4 +21,4 @@ router.get('/userinfo', (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
