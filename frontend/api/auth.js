@@ -37,12 +37,6 @@ router.post('/register', async (req, res) => {
   } = req.body;
 
   try {
-
-    // force if tampered role, default to "user"
-    if (role !== 'driver') {
-      role = "user";
-    }
-
     // insert into users table
     const userResult = await db.query(
       'INSERT INTO users (firstname, lastname, username, email, phonenumber, password, role) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id',
