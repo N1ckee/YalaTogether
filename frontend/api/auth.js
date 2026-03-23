@@ -1,7 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import pg from "pg";
-import db from './db.js';
 import jwt from "jsonwebtoken";
 
 const { Pool } = pg;
@@ -39,7 +38,7 @@ router.post('/register', async (req, res) => {
 
   try {
     // insert into users table
-    const userResult = await db.query(
+    const userResult = await pool.query(
       'INSERT INTO users (firstname, lastname, username, email, phonenumber, password, role) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id',
       [firstname, lastname, username, email, phonenumber, password, role]
     );
@@ -50,7 +49,7 @@ router.post('/register', async (req, res) => {
       if (!licence || !car_plate || !car_type) {
         return res.status(400).json({ error: 'Missing required driver fields.' });
       }
-      await db.query(
+      await pool.query(
         'INSERT INTO drivers (user_id, licence, car_plate, car_type, fuel_cost, path_offset) VALUES ($1, $2, $3, $4, $5, $6)',
         [user_id, licence, car_plate, car_type, fuel_cost || 0, path_offset || 0]
       );
