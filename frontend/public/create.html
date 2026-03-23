@@ -28,7 +28,7 @@
 <div id="carfields" class="hidden">
 <input type="text" id="carNumber" name="car_plate" placeholder="Car Number">
 <input type="text" id="carModel" name="car_type" placeholder="Car Model">
-<input type="text" id="licenseNumber" name="license" placeholder="Driving License Number">
+<input type="text" id="licenseNumber" name="licence" placeholder="Driving License Number">
 <input type="date" id="licenseDate" name="licenseDate">
 <div id="licenseError" class="error"></div>
 </div>
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // add car and license fields if driver role is selected
     if (is_driver) {
       userdata.role = "driver";
-      userdata.license = registerForm.elements['license'].value;
+      userdata.license = registerForm.elements['licence'].value;
       userdata.car_plate = registerForm.elements['car_plate'].value;
       userdata.car_type = registerForm.elements['car_type'].value;
     } else {
