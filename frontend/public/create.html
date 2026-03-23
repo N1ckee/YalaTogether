@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Create Account - Yala Together</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -13,8 +13,8 @@
 <img src="images/yalla-together.svg" alt="Yala Together" class="form-logo">
 <form id="registerForm">
 
-<input type="text" name="firstname" placeholder="Firstname">
-<input type="text" name="lastname" placeholder="Lastname">
+<input type="text" name="firstname" id="firstname" placeholder="Firstname" required>
+<input type="text" name="lastname" id="lastname" placeholder="Lastname" required>
 <input type="text" name="username" id="username" placeholder="Username" required>
 <input type="email" name="email" id="email" placeholder="Email" required>
 <input type="tel" name="phonenumber" id="phonenumber" placeholder="Phone Number" required>
@@ -26,10 +26,10 @@
 </div>
 
 <div id="carfields" class="hidden">
-<input type="text" id="carNumber" placeholder="Car Number">
-<input type="text" id="carModel" placeholder="Car Model">
-<input type="text" id="licenseNumber" placeholder="Driving License Number">
-<input type="date" id="licenseDate">
+<input type="text" id="carNumber" name="carNumber" placeholder="Car Number">
+<input type="text" id="carModel" name="carModel" placeholder="Car Model">
+<input type="text" id="licenseNumber" name="licenseNumber" placeholder="Driving License Number">
+<input type="date" id="licenseDate" name="licenseDate">
 <div id="licenseError" class="error"></div>
 </div>
 
@@ -43,6 +43,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   const driverRole = document.getElementById('driverRole');
   const carfields = document.getElementById('carfields');
+  const registerForm = document.getElementById('registerForm');
+  const licenseError = document.getElementById('licenseError');
+  const licenseDate = document.getElementById('licenseDate');
 
   driverRole.addEventListener('change', () => {
     carfields.classList.toggle('hidden', !driverRole.checked);
@@ -50,107 +53,112 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialize display on page load
   carfields.classList.toggle('hidden', !driverRole.checked);
-});
 
-form.addeventlistener('submit', function (e) {
-  e.preventdefault();
+  registerForm.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  if (licenseerror) licenseerror.textcontent = "";
+    if (licenseError) licenseError.textContent = "";
 
+    const firstname = registerForm.elements['firstname'].value.trim();
+    const lastname = registerForm.elements['lastname'].value.trim();
+    const username = registerForm.elements['username'].value.trim();
+    const email = registerForm.elements['email'].value.trim();
+    const phonenumber = registerForm.elements['phonenumber'].value.trim();
+    const password = registerForm.elements['password'].value;
+    const confirm_password = registerForm.elements['confirm_password'].value;
+    const is_driver = driverRole.checked;
 
-  const form = document.queryselector('form');
-
-  const firstname = form.elements['firstname'].value.trim();
-  const lastname = form.elements['lastname'].value.trim();
-  const username = form.elements['username'].value.trim();
-  const email = form.elements['email'].value.trim();
-  const phonenumber = form.elements['phonenumber'].value.trim();
-  const password = form.elements['password'].value;
-  const confirm_password = form.elements['confirmpassword'].value;
-  const is_driver = document.getelementbyid('driver').checked;
-
-
-  if (password !== confirm_password) {
-    alert("passwords do not match");
-    return;
-  }
-
-  const strongpassword = /^(?=.*[a-za-z])(?=.*\d)[a-za-z\d]{6,}$/;
-  if (!strongpassword.test(password)) {
-    alert("password must contain letters and numbers (min 6 characters)");
-    return;
-  }
-
-  const phoneregex = /^[0-9]{7,15}$/;
-  if (!phoneregex.test(phonenumber)) {
-    alert("invalid phone number");
-    return;
-  }
-
-  // only validate license if driver role is selected
-  if (is_driver) {
-    if (!licensedate.value) {
-      if (licenseerror) licenseerror.textcontent = "please enter your license issue date";
+    if (password !== confirm_password) {
+      alert("Passwords do not match");
       return;
     }
-    const selecteddate = new date(licensedate.value);
-    const today = new date();
-    // calculate full years difference
-    let years = today.getfullyear() - selecteddate.getfullyear();
-    const m = today.getmonth() - selecteddate.getmonth();
-    if (m < 0 || (m === 0 && today.getdate() < selecteddate.getdate())) {
-      years--;
-    }
-    if (years < 2) {
-      if (licenseerror) licenseerror.textcontent = "license rejected: less than 2 years";
+
+    const strongPassword = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
+    if (!strongPassword.test(password)) {
+      alert("Password must be at least 6 characters, contain at least one letter and one number.");
       return;
     }
-    if (licenseerror) licenseerror.textcontent = "";
-  }
 
-  const userdata = {
-    firstname,
-    lastname,
-    username,
-    email,
-    phonenumber,
-    password,
-    confirm_password
-  };
+    const phoneRegex = /^[0-9]{7,15}$/;
+    if (!phoneRegex.test(phonenumber)) {
+      alert("Invalid phone number");
+      return;
+    }
 
-  // add licensedate if driver role is selected
-  if (is_driver) {
-    userdata.licensedate = licensedate.value;
-  }
+    // only validate license if driver role is selected
+    if (is_driver) {
+      if (!licenseDate.value) {
+        if (licenseError) licenseError.textContent = "Please enter your license issue date";
+        return;
+      }
+      const selectedDate = new Date(licenseDate.value);
+      const today = new Date();
+      // calculate full years difference
+      let years = today.getFullYear() - selectedDate.getFullYear();
+      const m = today.getMonth() - selectedDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < selectedDate.getDate())) {
+        years--;
+      }
+      if (years < 2) {
+        if (licenseError) licenseError.textContent = "License rejected: less than 2 years";
+        return;
+      }
+      if (licenseError) licenseError.textContent = "";
+    }
 
-  fetch("/auth/register", {
-    method: "post",
-    headers: {
-      "content-type": "application/json"
-    },
-    body: json.stringify(userdata)
-  })
-.then(async res => {
-  let data = {};
-  try {
-    data = await res.json();
-  } catch {
-    // if response is not json, keep data as empty object
-  }
-  if (!res.ok) {
-    throw new error(data.error || "registration failed");
-  }
-  return data;
-})
-.then(data => {
-  alert("registration successful!");
-  window.location.href = "login.html";
-})
-.catch(err => {
-  console.error(err);
-  if (licenseerror) licenseerror.textcontent = err.message || "registration failed";
+    const userdata = {
+      firstname,
+      lastname,
+      username,
+      email,
+      phonenumber,
+      password
+    };
+
+    // add car and license fields if driver role is selected
+    if (is_driver) {
+      userdata.carNumber = registerForm.elements['carNumber'].value;
+      userdata.carModel = registerForm.elements['carModel'].value;
+      userdata.licenseNumber = registerForm.elements['licenseNumber'].value;
+      userdata.licenseDate = licenseDate.value;
+      userdata.is_driver = true;
+    }
+
+    fetch("/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userdata)
+    })
+    .then(async res => {
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        // if response is not json, keep data as empty object
+      }
+      if (!res.ok) {
+        throw new Error(data.error || "Registration failed");
+      }
+      return data;
+    })
+    .then(data => {
+      alert("Registration successful!");
+      window.location.href = "login.html";
+    })
+    .catch(err => {
+      console.error(err);
+      // Show error in licenseError if driver, otherwise alert
+      if (is_driver && licenseError) {
+        licenseError.textContent = err.message || "Registration failed";
+      } else {
+        alert(err.message || "Registration failed");
+      }
+    });
+  });
 });
-});
+</script>
 </script>
    
 </body>

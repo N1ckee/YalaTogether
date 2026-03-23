@@ -28,47 +28,43 @@ router.post('/register', async (req, res) => {
     email,
     phonenumber,
     password,
-    role
+    role,
+    licence,
+    car_plate,
+    car_type,
+    fuel_cost,
+    path_offset
   } = req.body;
 
   try {
-    if (!username || !email || !password) {
-      return res.status(400).json({ error: "Missing required fields" });
+
+    // force if tampered role, default to "user"
+    if (role !== 'driver') {
+      role = "user";
     }
 
-    if (role !== 'user') {
-      role = "driver"
-    }
-
-    const password_hash = await bcrypt.hash(password, 10);
-
-    const result = await pool.query(
-      `INSERT INTO users
-       (firstname, lastname, username, email, phonenumber, password_hash, role)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id, username, email, role`,
-      [
-        firstname || null,
-        lastname || null,
-        username,
-        email,
-        phonenumber || null,
-        password_hash,
-        role
-      ]
+    // insert into users table
+    const userResult = await db.query(
+      'INSERT INTO users (firstname, lastname, username, email, phonenumber, password, role) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id',
+      [firstname, lastname, username, email, phonenumber, password, role]
     );
+    const user_id = userResult.rows[0].id;
 
-    res.status(201).json({
-      message: 'User created',
-      user: result.rows[0]
-    });
-  } catch (err) {
-    if (err.code === '23505') {
-      return res.status(409).json({ error: 'Username or email already exists' });
+    // If registering as driver, insert into drivers table
+    if (role === 'driver') {
+      if (!licence || !car_plate || !car_type) {
+        return res.status(400).json({ error: 'Missing required driver fields.' });
+      }
+      await db.query(
+        'INSERT INTO drivers (user_id, licence, car_plate, car_type, fuel_cost, path_offset) VALUES ($1, $2, $3, $4, $5, $6)',
+        [user_id, licence, car_plate, car_type, fuel_cost || 0, path_offset || 0]
+      );
     }
 
+    res.status(201).json({ message: 'Registration successful.' });
+  } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Registration failed.' });
   }
 });
 
