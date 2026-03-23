@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import pg from "pg";
+import db from './db.js';
 import jwt from "jsonwebtoken";
 
 const { Pool } = pg;
