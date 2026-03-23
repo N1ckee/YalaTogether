@@ -117,11 +117,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // add car and license fields if driver role is selected
     if (is_driver) {
+      userdata.role = "driver";
       userdata.carNumber = registerForm.elements['carNumber'].value;
       userdata.carModel = registerForm.elements['carModel'].value;
       userdata.licenseNumber = registerForm.elements['licenseNumber'].value;
       userdata.licenseDate = licenseDate.value;
-      userdata.is_driver = true;
+    } else {
+      userdata.role = "user";
     }
 
     fetch("/auth/register", {
