@@ -22,10 +22,10 @@
 <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required>
 
 <div class="role-options">
-<label><input type="checkbox" id="driver" value="driver" class="role">Register as a Driver</label>
+<label><input type="checkbox" id="driverRole" value="driver" class="role">Register as a Driver</label>
 </div>
 
-<div id="carFields" class="hidden">
+<div id="carfields" class="hidden">
 <input type="text" id="carNumber" placeholder="Car Number">
 <input type="text" id="carModel" placeholder="Car Model">
 <input type="text" id="licenseNumber" placeholder="Driving License Number">
@@ -39,22 +39,17 @@
 </div>
     
 <script>
-const roles = document.queryselectorall('.role');
-const carfields = document.getelementbyid('carfields');
-const form = document.getelementbyid('registerform');
-const licensedate = document.getelementbyid('licensedate');
-const licenseerror = document.getelementbyid('licenseerror');
+// Driver option
+document.addEventListener('DOMContentLoaded', function() {
+  const driverRole = document.getElementById('driverRole');
+  const carfields = document.getElementById('carfields');
 
-roles.foreach(role => {
-  role.addeventlistener('change', () => {
-    const driverchecked = [...roles].some(r => r.value === 'driver' && r.checked);
-    if (driverchecked) {
-      carfields.classlist.remove('hidden');
-    } else {
-      carfields.classlist.add('hidden');
-      if (licenseerror) licenseerror.textcontent = "";
-    }
+  driverRole.addEventListener('change', () => {
+    carfields.classList.toggle('hidden', !driverRole.checked);
   });
+
+  // Initialize display on page load
+  carfields.classList.toggle('hidden', !driverRole.checked);
 });
 
 form.addeventlistener('submit', function (e) {
