@@ -1,3 +1,5 @@
+import { debug } from "console";
+
 // Define user/session variables at the top
 let username = '';
 let role = '';
@@ -286,20 +288,25 @@ if (addBtn) {
     }
 
     try {
+
+      const createdata = {
+        path_data,
+        start,
+        destination,
+        length,
+        eta,
+        user_id,
+        seats
+      }
+
+      console.log("Creating ride with data:", createdata);
+
       const response = await fetch("/paths/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          path_data,
-          start,
-          destination,
-          length,
-          eta,
-          user_id,
-          seats
-        })
+        body: JSON.stringify(createdata)
       });
 
       const data = await response.json();

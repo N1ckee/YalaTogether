@@ -17,7 +17,7 @@ function authenticateToken(req, res, next) {
   });
 }
 
-router.post('/create', async (req, res) => {
+router.post('/create', authenticateToken, async (req, res) => {
   try {
     const {
       path_data,
