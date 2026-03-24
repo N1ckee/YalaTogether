@@ -145,7 +145,7 @@ document.getElementById("useLocationBtn").addEventListener("click", () => {
     }).addTo(map);
   });
 });
-// 🚗 عرض الرحلات من الباك اند
+//  show ride from backend
 const ridesContainer = document.getElementById("contentArea");
 
 async function loadRides() {
