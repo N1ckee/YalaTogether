@@ -290,7 +290,6 @@ if (addBtn) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + token
         },
         body: JSON.stringify({
           path_data,

@@ -54,7 +54,7 @@ router.post('/create', authenticateToken, async (req, res) => {
   }
 });
 
-router.get("/all", authenticateToken, async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM paths ORDER BY created_at DESC;");
     res.json(result.rows);
