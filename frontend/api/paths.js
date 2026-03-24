@@ -18,16 +18,16 @@ function authenticateToken(req, res, next) {
 }
 
 router.post('/create', async (req, res) => {
+  const {
+    path_data,
+    start,
+    destination,
+    length,
+    eta,
+    user_id,
+    seats
+  } = req.body;
   try {
-    const {
-      path_data,
-      start,
-      destination,
-      length,
-      eta,
-      user_id,
-      seats
-    } = req.body;
 
     const query = `
     INSERT INTO paths (
