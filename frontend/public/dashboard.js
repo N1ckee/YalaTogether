@@ -274,7 +274,7 @@ if (addBtn) {
       : document.getElementById("driverTo").value;
 
     // Ensure path_data is an array of [lat, lng] pairs for jsonb
-    let path_data = null;
+    let path_data = [document.getElementById("driverFrom").value, document.getElementById("driverTo").value];
     if (typeof startMarker !== "undefined" && typeof endMarker !== "undefined" && startMarker && endMarker) {
       path_data = [
         [startMarker.getLatLng().lat, startMarker.getLatLng().lng],
