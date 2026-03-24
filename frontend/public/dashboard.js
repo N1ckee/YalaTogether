@@ -1,7 +1,7 @@
 // Define user/session variables at the top
 let username = '';
 let role = '';
-let id = '';
+let user_id = '';
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -22,7 +22,7 @@ fetch('/userinfo/user', {
   .then(data => {
     username = data.username;
     role = data.role;
-    id = data.id;
+    user = data.id;
     // Optionally, set token if returned by backend
     // token = data.token;
 
@@ -30,7 +30,7 @@ fetch('/userinfo/user', {
     document.getElementById('role').textContent = role;
 
     document.getElementById("welcomeText").textContent =
-      "Welcome " + username + " (" + role + "#" + id + "  )";
+      "Welcome " + username + " (" + role + "#" + user_id + "  )";
     if (role === "driver") {
       const form = document.getElementById("driverForm");
       if (form) {
