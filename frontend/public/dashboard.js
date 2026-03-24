@@ -280,8 +280,8 @@ if (addBtn) {
 
     // Ensure required variables are defined
     if (typeof length === "undefined" || typeof user_id === "undefined" || typeof token === "undefined") {
-      alert("Internal error: Missing required data (length, user_id, or token).");
       console.error("Missing data:", { length, user_id, token });
+      alert("Internal error: Missing required data (length, user_id, or token).");
       return;
     }
 
