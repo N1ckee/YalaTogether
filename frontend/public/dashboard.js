@@ -251,18 +251,29 @@ function filterRides() {
 
   displayRides(filtered);
 }
+
+
+// Handle adding a new ride when the "Add Ride" button is clicked
 const addBtn = document.getElementById("addRideBtn");
 
 if (addBtn) {
   addBtn.addEventListener("click", async () => {
+    // Collect route and form data
     const path_data = routeLine;
     const start = document.getElementById("driverFrom").value;
     const destination = document.getElementById("driverTo").value;
     const eta = document.getElementById("driverTime").value;
     const seats = document.getElementById("driverSeats").value;
 
-    if (!from || !to || !time || !seats) {
+    // Validate required fields
+    if (!start || !destination || !eta || !seats) {
       alert("Please fill all fields");
+      return;
+    }
+
+    // Ensure required variables are defined
+    if (typeof length === "undefined" || typeof user_id === "undefined" || typeof token === "undefined") {
+      alert("Internal error: Missing required data (length, user_id, or token).");
       return;
     }
 
@@ -292,11 +303,14 @@ if (addBtn) {
 
       alert("✅ Ride added!");
 
-      loadRides();
+      // Reload rides if function is available
+      if (typeof loadRides === "function") {
+        loadRides();
+      }
 
     } catch (err) {
       console.error(err);
-      alert(err.message);
+      alert(err.message || "An unexpected error occurred.");
     }
   });
 }
