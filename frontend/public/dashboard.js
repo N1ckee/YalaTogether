@@ -49,6 +49,12 @@ fetch('/userinfo/user', {
 
 // All dashboard logic that depends on user info goes here
 function initDashboard() {
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+  //delet cookie
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "login.html";
+});
   // ... move the rest of your dashboard.js code here ...
 }
 const map = L.map("map").setView([59.3293, 18.0686], 6);
@@ -195,7 +201,7 @@ function displayRides(rides) {
   });
 }
 
-// 📌 حجز رحلة
+// booka ride
 document.addEventListener("click", async function (e) {
   if (e.target.classList.contains("book-btn")) {
     const rideId = e.target.dataset.id;
@@ -239,7 +245,7 @@ document.addEventListener("click", async function (e) {
   }
 });
 
-// 🚀 تشغيل تحميل الرحلات
+// load ride
 loadRides();
 document.getElementById("fromInput").addEventListener("input", filterRides);
 document.getElementById("toInput").addEventListener("input", filterRides);
