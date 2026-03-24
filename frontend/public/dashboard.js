@@ -2,7 +2,13 @@
 let username = '';
 let role = '';
 let id = '';
-let token = '';
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+const token = getCookie("token");
 
 // Fetch user info from backend and initialize dashboard
 fetch('/userinfo/user', {
