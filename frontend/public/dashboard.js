@@ -265,9 +265,18 @@ const addBtn = document.getElementById("addRideBtn");
 if (addBtn) {
   addBtn.addEventListener("click", async () => {
     // Collect route and form data
-    const path_data = [startMarker.getLatLng(), endMarker.getLatLng()]
-    const start = document.getElementById("driverFrom").value;
-    const destination = document.getElementById("driverTo").value;
+    const start = startMarker
+  ? startMarker.getLatLng().lat + "," + startMarker.getLatLng().lng
+  : document.getElementById("driverFrom").value;
+
+const destination = endMarker
+  ? endMarker.getLatLng().lat + "," + endMarker.getLatLng().lng
+  : document.getElementById("driverTo").value;
+
+const path_data = {
+  start: start,
+  end: destination
+};
     const eta = document.getElementById("driverTime").value;
     const seats = document.getElementById("driverSeats").value;
     const length = document.getElementById("distanceInfo").textContent.replace("Distance: ", "").replace(" km", "");
