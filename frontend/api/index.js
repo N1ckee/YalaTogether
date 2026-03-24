@@ -1,6 +1,7 @@
 import express from "express";
 import authRoutes from "./auth.js";
 import userinfoRoutes from './userinfo.js';
+import pathsRoutes from './paths.js';
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -21,5 +22,6 @@ app.get("/test", (req, res) => {
 
 app.use("/auth", authRoutes);
 app.use("/userinfo", userinfoRoutes);
+app.use("/paths", pathsRoutes);
 
 export default app;

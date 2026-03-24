@@ -144,7 +144,7 @@ const ridesContainer = document.getElementById("contentArea");
 
 async function loadRides() {
   try {
-    const response = await fetch("/api/rides");
+    const response = await fetch("/paths/all");
 
     const data = await response.json();
 
