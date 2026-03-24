@@ -266,17 +266,22 @@ if (addBtn) {
   addBtn.addEventListener("click", async () => {
     // Collect route and form data
     const start = startMarker
-  ? startMarker.getLatLng().lat + "," + startMarker.getLatLng().lng
-  : document.getElementById("driverFrom").value;
+      ? startMarker.getLatLng().lat + "," + startMarker.getLatLng().lng
+      : document.getElementById("driverFrom").value;
 
-const destination = endMarker
-  ? endMarker.getLatLng().lat + "," + endMarker.getLatLng().lng
-  : document.getElementById("driverTo").value;
+    const destination = endMarker
+      ? endMarker.getLatLng().lat + "," + endMarker.getLatLng().lng
+      : document.getElementById("driverTo").value;
 
-const path_data = {
-  start: start,
-  end: destination
-};
+    // Ensure path_data is an array of [lat, lng] pairs for jsonb
+    let path_data = null;
+    if (typeof startMarker !== "undefined" && typeof endMarker !== "undefined" && startMarker && endMarker) {
+      path_data = [
+        [startMarker.getLatLng().lat, startMarker.getLatLng().lng],
+        [endMarker.getLatLng().lat, endMarker.getLatLng().lng]
+      ];
+    };
+
     const eta = document.getElementById("driverTime").value;
     const seats = document.getElementById("driverSeats").value;
     const length = document.getElementById("distanceInfo").textContent.replace("Distance: ", "").replace(" km", "");
