@@ -1,9 +1,22 @@
 import express from 'express';
 import pool from "./db.js";
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
-router.post('/create', async (req, res) => {
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
+
+router.post('/create', authenticateToken, async (req, res) => {
   try {
     const {
       path_data,
@@ -41,7 +54,7 @@ router.post('/create', async (req, res) => {
   }
 });
 
-router.get("/all", async (req, res) => {
+router.get("/all", authenticateToken, async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM paths ORDER BY created_at DESC;");
     res.json(result.rows);
