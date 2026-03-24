@@ -265,7 +265,7 @@ const addBtn = document.getElementById("addRideBtn");
 if (addBtn) {
   addBtn.addEventListener("click", async () => {
     // Collect route and form data
-    const path_data = { startMarker, endMarker };
+    const path_data = [startMarker.getLatLng(), endMarker.getLatLng()]
     const start = document.getElementById("driverFrom").value;
     const destination = document.getElementById("driverTo").value;
     const eta = document.getElementById("driverTime").value;
