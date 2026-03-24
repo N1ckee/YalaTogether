@@ -1,6 +1,7 @@
 // Define user/session variables at the top
 let username = '';
 let role = '';
+let id = '';
 let token = '';
 
 // Fetch user info from backend and initialize dashboard
@@ -15,6 +16,7 @@ fetch('/userinfo/user', {
   .then(data => {
     username = data.username;
     role = data.role;
+    id = data.id;
     // Optionally, set token if returned by backend
     // token = data.token;
 
@@ -253,9 +255,10 @@ const addBtn = document.getElementById("addRideBtn");
 
 if (addBtn) {
   addBtn.addEventListener("click", async () => {
-    const from = document.getElementById("driverFrom").value;
-    const to = document.getElementById("driverTo").value;
-    const time = document.getElementById("driverTime").value;
+    const path_data = routeLine;
+    const start = document.getElementById("driverFrom").value;
+    const destination = document.getElementById("driverTo").value;
+    const eta = document.getElementById("driverTime").value;
     const seats = document.getElementById("driverSeats").value;
 
     if (!from || !to || !time || !seats) {
@@ -264,16 +267,19 @@ if (addBtn) {
     }
 
     try {
-      const response = await fetch("/api/rides", {
+      const response = await fetch("/paths/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer " + token
         },
         body: JSON.stringify({
-          from,
-          to,
-          time,
+          path_data,
+          start,
+          destination,
+          length,
+          eta,
+          user_id,
           seats
         })
       });

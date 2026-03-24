@@ -14,7 +14,8 @@ router.get('/user', (req, res) => {
     // Only send non-sensitive info
     res.json({
       username: payload.username,
-      role: payload.role
+      role: payload.role,
+      id: payload.id
     });
   } catch (err) {
     res.status(401).json({ error: 'Invalid token' });

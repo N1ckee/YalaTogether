@@ -1,14 +1,9 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import pg from "pg";
+import pool from "./db.js";
 import jwt from "jsonwebtoken";
 
-const { Pool } = pg;
 const router = express.Router();
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL + '?sslmode=verify-full',
-  ssl: { rejectUnauthorized: true }
-});
 
 // TEST
 router.get("/test", (req, res) => {
