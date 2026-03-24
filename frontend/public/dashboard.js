@@ -270,6 +270,7 @@ if (addBtn) {
     const destination = document.getElementById("driverTo").value;
     const eta = document.getElementById("driverTime").value;
     const seats = document.getElementById("driverSeats").value;
+    const length = document.getElementById("distanceInfo").textContent.replace("Distance: ", "").replace(" km", "");
 
     // Validate required fields
     if (!start || !destination || !eta || !seats) {
