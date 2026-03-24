@@ -9,6 +9,7 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 const token = getCookie("token");
+console.log("Token from cookie:", token);
 
 // Fetch user info from backend and initialize dashboard
 fetch('/userinfo/user', {
@@ -22,7 +23,7 @@ fetch('/userinfo/user', {
   .then(data => {
     username = data.username;
     role = data.role;
-    user = data.id;
+    user_id = data.id;
     // Optionally, set token if returned by backend
     // token = data.token;
 
