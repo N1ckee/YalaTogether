@@ -47,6 +47,8 @@ router.post('/create', async (req, res) => {
       seats
     ];
 
+    console.log("Executing query:", { query, values });
+
     const result = await pool.query(query, values);
     res.json(result.rows[0]);
   } catch (err) {
