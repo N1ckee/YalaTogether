@@ -17,7 +17,7 @@ function authenticateToken(req, res, next) {
   });
 }
 
-router.post('/create', async (req, res) => {
+outer.post('/create', async (req, res) => {
   const {
     path_data,
     start,
@@ -52,8 +52,8 @@ router.post('/create', async (req, res) => {
     const result = await pool.query(query, values);
     res.json(result.rows[0]);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "Failed to create path" });
+    console.error(err);
   }
 });
 

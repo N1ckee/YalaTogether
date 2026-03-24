@@ -299,20 +299,19 @@ if (addBtn) {
       return;
     }
 
+    const createdata = {
+      path_data,
+      start,
+      destination,
+      length,
+      eta,
+      user_id,
+      seats
+    }
+
+    console.log("Creating ride with data:", createdata);
+
     try {
-
-      const createdata = {
-        path_data,
-        start,
-        destination,
-        length,
-        eta,
-        user_id,
-        seats
-      }
-
-      console.log("Creating ride with data:", createdata);
-
       const response = await fetch("/paths/create", {
         method: "POST",
         headers: {
