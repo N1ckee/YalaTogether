@@ -24,7 +24,7 @@ fetch('/userinfo/user', {
     document.getElementById('role').textContent = role;
 
     document.getElementById("welcomeText").textContent =
-      "Welcome " + username + " (" + role + ")";
+      "Welcome " + username + " (" + role + "#" + id + "  )";
     if (role === "driver") {
       const form = document.getElementById("driverForm");
       if (form) {
